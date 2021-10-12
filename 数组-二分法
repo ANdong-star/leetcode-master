@@ -1,0 +1,21 @@
+二分法前提条件;
+1. 元素排序
+2. 无重复元素
+坚持循环不变量原则   
+分 左闭右闭区间和左闭右开区间两种方式 
+class Solution:
+    def search(self, nums: List[int], target: int) -> int:
+        left, right = 0, len(nums) - 1
+        
+        while left <= right:
+            middle = (left + right) // 2
+
+            if nums[middle] < target:
+                left = middle + 1
+            elif nums[middle] > target:
+                right = middle - 1
+            else:
+                return middle
+        return -1
+
+
