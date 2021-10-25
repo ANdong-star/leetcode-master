@@ -47,7 +47,7 @@ class Solution:
             else:
                 return mid
         return -1
-#解释：
+#理解：
 #左闭右闭或者左闭右开指的是left <= right 或者 left < right 
 #在target 落在 左边的一半区间的时候，对 right的赋值会不一样 
 
