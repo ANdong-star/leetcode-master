@@ -19,7 +19,7 @@ class Solution:
         while left < right and up < down:
 
             # 从左到右填充上边
-            for x in range(left, right):
+            for x in range(left, right):    #一个左开右闭的区间  从 left 到 right-1
                 matrix[up][x] = number
                 number += 1
 
