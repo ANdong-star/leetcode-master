@@ -8,6 +8,16 @@ addAtTail(val)：将值为 val 的节点追加到链表的最后一个元素。
 addAtIndex(index,val)：在链表中的第 index 个节点之前添加值为 val  的节点。如果 index 等于链表的长度，则该节点将附加到链表的末尾。如果 index 大于链表长度，则不会插入节点。如果index小于0，则在头部插入节点。
 deleteAtIndex(index)：如果索引 index 有效，则删除链表中的第 index 个节点。
 
+示例：
+MyLinkedList linkedList = new MyLinkedList();
+linkedList.addAtHead(1);
+linkedList.addAtTail(3);
+linkedList.addAtIndex(1,2);   //链表变为1-> 2-> 3
+linkedList.get(1);            //返回2
+linkedList.deleteAtIndex(1);  //现在链表是1-> 3
+linkedList.get(1);            //返回3
+
+
 # 单链表
 class Node:
     
@@ -167,3 +177,5 @@ class MyLinkedList:
             node.prev.next, node.next.prev = node.next, node.prev
 
 理解：
+只是基本功能实现，感觉尽量设置虚拟头结点好一点。
+
