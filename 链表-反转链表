@@ -17,4 +17,4 @@ class Solution:
         return pre
         
 理解:
-
+建立缓存结点进行迭代反转操作   注意最后才更新cur  
