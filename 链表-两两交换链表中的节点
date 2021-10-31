@@ -5,6 +5,7 @@
 
 
 代码：
+参考：
 class Solution:
     def swapPairs(self, head: ListNode) -> ListNode:
         res = ListNode(next=head)
@@ -22,3 +23,7 @@ class Solution:
 
             pre = pre.next.next
         return res.next
+
+
+自己写的：
+    
