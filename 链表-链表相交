@@ -1,0 +1,46 @@
+题目描述：
+给定两个（单向）链表，判定它们是否相交并返回交点。请注意相交的定义基于节点的引用，而不是基于节点的值。
+换句话说，如果一个链表的第k个节点与另一个链表的第j个节点是同一节点（引用完全相同），则这两个链表相交。
+
+代码（根据作者的思路用python重新敲了一遍）：
+# Definition for singly-linked list.
+# class ListNode:
+#     def __init__(self, x):
+#         self.val = x
+#         self.next = None
+
+class Solution:
+    def getIntersectionNode(self, headA: ListNode, headB: ListNode) -> ListNode:
+        cur_a = headA
+        cur_b = headB
+        lenA, lenB = 0, 0
+
+        while cur_a!=None:
+            cur_a = cur_a.next
+            lenA +=1
+        while cur_b!=None:
+            cur_b = cur_b.next
+            lenB +=1
+
+        cur_a = headA
+        cur_b = headB
+
+        if lenB > lenA:
+            lenA, lenB = lenB, lenA
+            cur_a, cur_b = cur_b, cur_a
+        gap = lenA - lenB
+        while gap!=0:
+            cur_a = cur_a.next
+            gap -=1
+        while cur_a!= None:
+            if cur_a == cur_b:
+                return cur_a
+            cur_a = cur_a.next
+            cur_b = cur_b.next
+
+
+        return None
+        
+理解:
+对于相交的理解 是这时候的指针相等  不是单纯的数值相等  即相交的这个节点和之后的节点 其连接方式和对应的数值都是一样的  
+因此 如果有相交节点的话  肯定不会存在于长链表的前面 肯定是两个链表后面部分相等 因此开始让长链表和短链表的后面对齐 然后开始往后移动
