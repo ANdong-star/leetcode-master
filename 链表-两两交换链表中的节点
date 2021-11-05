@@ -25,5 +25,34 @@ class Solution:
         return res.next
 
 
+
 自己写的：
+# Definition for singly-linked list.
+# class ListNode:
+#     def __init__(self, val=0, next=None):
+#         self.val = val
+#         self.next = next
+class Solution:
+    def swapPairs(self, head: ListNode) -> ListNode:
+        res = ListNode(next=head)
+        cur = res
+
+        while cur.next and cur.next.next:
+            temp = cur.next
+            temp2 = cur.next.next.next
+
+            cur.next = temp.next
+            cur.next.next = temp
+            temp.next = temp2 
+
+
+
+            cur = cur.next.next
+        
+        return res.next
+        
+ 理解：
+ .next 是指向  直接点名节点是真的节点 包括以后所有的指向和值  
+ 当指向变了的时候 之前的指向就自动断掉了 
+    
     
