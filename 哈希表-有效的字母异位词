@@ -22,7 +22,7 @@ class Solution:
         for i in range(26):    
             if record[i] != 0:
                 #record数组如果有的元素不为零0，说明字符串s和t 一定是谁多了字符或者谁少了字符。
-                return False
+                return False  #False 第一个字母大写
         return True
 理解：
 建立哈希表(用数组表示) 键对应字母  值对应字母出现的次数 先加后减
