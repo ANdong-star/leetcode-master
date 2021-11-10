@@ -25,4 +25,4 @@ class Solution:
                 return False
         return True
 理解：
-建立哈希表 键对应字母  值对应字母出现的次数 先加后减
+建立哈希表(用数组表示) 键对应字母  值对应字母出现的次数 先加后减
