@@ -1,0 +1,37 @@
+题目：
+   编写一个算法来判断一个数 n 是不是快乐数。
+  「快乐数」定义为：对于一个正整数，每一次将该数替换为它每个位置上的数字的平方和，然后重复这个过程直到这个数变为 1，也可能是 无限循环 但始终变不到 1。如果 可以变为  1，那么这个数就是快乐数。
+  如果 n 是快乐数就返回 True ；不是，则返回 False 。
+
+代码：
+
+  class Solution:
+      def isHappy(self, n: int) -> bool:
+
+          sum = 0
+          recoard = set()
+
+          while True:
+
+              while n:
+                  sum += (n % 10) ** 2
+                  n = n // 10
+
+                  print(sum)
+
+              if sum == 1:
+                  return True
+              if sum in recoard:
+                  return False
+              else:
+                  recoard.add(sum)
+                  n = sum
+                  sum = 0
+
+理解：
+    快乐数的定义搞明白 
+    只要是快乐数 肯定有等于1的时候
+    只要不是快乐数 肯定会遇到循环的时候 
+    因此用set()保存每次的平方和 出现循环就返回 false
+    另外注意 每次n处理完之后 n就变了 就记住赋值更新 
+    
