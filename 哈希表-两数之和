@@ -1,0 +1,19 @@
+题目：
+给定一个整数数组 nums 和一个目标值 target，请你在该数组中找出和为目标值的那 两个 整数，并返回他们的数组下标。
+你可以假设每种输入只会对应一个答案。但是，数组中同一个元素不能使用两遍。
+
+代码：
+class Solution:
+    def twoSum(self, nums: List[int], target: int) -> List[int]:
+        records = dict()
+
+        for idx, val in enumerate (nums):
+            if (target - val) not in records:
+                records[val] = idx
+            else:
+                return [records[target - val], idx]
+                
+ 理解：
+  因为返回的不是数组的值 而是数组的下标 所以用map 在python中是dict的数据类型
+  另外 求两数之和 其实可以for 循环一次 每次找target-val 知否存在 这样时间复杂度就是O(n) 判断是否在里面可以也说明用dict()这种map类的数据类型
+  
