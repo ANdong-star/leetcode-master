@@ -2,3 +2,35 @@
 题意：给定一个包含 n 个整数的数组 nums 和一个目标值 target，判断 nums 中是否存在四个元素 a，b，c 和 d ，使得 a + b + c + d 的值与 target 相等？找出所有满足条件且不重复的四元组。
 
 代码：
+class Solution:
+    def fourSum(self, nums: List[int], target: int) -> List[List[int]]:
+        ass = []
+        n = len(nums)
+        nums.sort()
+
+        for i in range(n):
+            if i > 0 and nums[i] == nums[i-1]: continue
+            for k in range(i+1, n):
+                if k > i+1 and nums[k] == nums[k-1]: continue
+                
+                left = k + 1
+                right = n - 1
+
+                while left < right:
+                    sum = nums[i] + nums[k] + nums[left] + nums[right]
+                    if sum < target:
+                        left += 1
+                    elif sum > target:
+                        right -=1
+                    else:
+                        ass.append([nums[i],nums[k],nums[left],nums[right]])
+                        while left < right and nums[left] == nums[left+1]: left +=1
+                        while left < right and nums[right] == nums[right-1]: right -=1
+
+                        left += 1
+                        right -= 1
+
+        return ass
+理解：
+四数之和多一层嵌套 可以四个数里面有重复的数 但是不能两次的四个数完全一样 （这是两个概念）  因此如果有符合条件的数之后 left和right都要更新到换一个新的数  因此如果left或者right即使下标更新了
+但是数值不更新 新的四个数就会跟以前一样  此外，每次i和k也是同理 更新之后跟前一次比较是否相等 相等的话继续更新  注意是跟前一次作比较 
