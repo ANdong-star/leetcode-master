@@ -10,4 +10,38 @@
 满足要求的三元组集合为： [ [-1, 0, 1], [-1, -1, 2] ]
 
 代码：
+class Solution:
+    def threeSum(self, nums: List[int]) -> List[List[int]]:
 
+        ass = []
+        nums.sort()
+        for i in range(len(nums)):
+            
+            if nums[i] > 0:
+                break 
+            elif i > 0 and nums[i] == nums[i-1]:
+                continue
+            left = i + 1
+            right = len(nums) - 1
+
+            while left < right:
+                
+                sum = nums[i] + nums[left] + nums[right]
+                if sum < 0:
+                    left += 1
+                elif sum > 0:
+                    right -= 1
+                
+                else:
+                    
+                    ass.append([nums[i],nums[left],nums[right]])
+                    while left < right and nums[left] == nums[left+1]: left += 1
+                    while left < right and nums[right] == nums[right-1]: right -= 1
+                    left += 1
+                    right -= 1
+        
+        return ass
+
+理解：
+双指针的方法 时间复杂度为O(N) 每次i更新之后 移动双指针来寻找 
+当满足条件更新 left 或者right的时候 因为不能重复 因此需要去除相等的值  因此while判断的时候需要加入条件 left<right 防止相同的太多 超出left<right的限制之后一直移动 造成内存或者时间消耗太多
