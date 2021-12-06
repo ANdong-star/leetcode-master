@@ -10,6 +10,31 @@
 5. 最后返回统计值 count 就可以了
 
 代码：
+class Solution:
+    def fourSumCount(self, nums1: List[int], nums2: List[int], nums3: List[int], nums4: List[int]) -> int:
+        hashmap = dict()
+
+        for n1 in nums1:
+            for n2 in nums2:
+                key = n1 + n2
+                if key in hashmap:
+                    hashmap[key] +=1
+                else:
+                    hashmap[key] = 1
+            
+        count = 0
+            
+        for n3 in nums3:
+            for n4 in nums4:
+                key = - n3 - n4
+                if key in hashmap:
+                    count += hashmap[key]
+
+
+        return count     
+
+本题的一个特点在于 不需要去重 而且四个数组是独立的 难度低  最终只输出count的大小就行了
+
 
 
 
