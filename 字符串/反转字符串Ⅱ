@@ -27,6 +27,12 @@ class Solution:
 
         for cur in range(0, len(res), k*2):
 
-            res[cur: cur+k] = reverse(res[cur: cur+k])
+            res[cur: cur+k] = reverse(res[cur: cur+k]) #切片操作
 
         return ''.join(res)
+        
+理解：
+有几个点需要注意
+第一，字符串转数组 这样超出范围的时候可以截到最后一位 方便
+第二， 切片操作 一次反转一个范围 
+第三，最后用.join()把数组内的元素拼接成字符串的格式输出
