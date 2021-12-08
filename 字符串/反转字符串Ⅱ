@@ -27,7 +27,7 @@ class Solution:
 
         for cur in range(0, len(res), k*2):
 
-            res[cur: cur+k] = reverse(res[cur: cur+k]) #切片操作
+            res[cur: cur+k] = reverse(res[cur: cur+k]) #切片操作 前开后闭
 
         return ''.join(res)
         
