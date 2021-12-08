@@ -5,8 +5,27 @@
 输出："We%20are%20happy."
 
 代码：
+class Solution:
+    def replaceSpace(self, s: str) -> str:
+
+        blank = s.count(' ')
+        res = list(s)
+        res.extend([' ']*blank*2) 
+        left, right = len(s)-1, len(res)-1
+
+        while left >= 0:
+            if res[left] != ' ': 
+                res[right] = res[left]
+                right -= 1
+            else:
+                res[right-2: right+1] = '%20'
+                right -= 3
+            left -= 1
+        return ''.join(res)
 
 
 
 
 理解：
+双指针 先扩充数组长度  接着从后往前扫
+注意数组切片操作的时候 前开后闭  因此后面的值需要+1
