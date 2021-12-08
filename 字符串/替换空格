@@ -18,7 +18,7 @@ class Solution:
                 res[right] = res[left]
                 right -= 1
             else:
-                res[right-2: right+1] = '%20'
+                res[right-2: right+1] = '%20'   #切片 前开后闭
                 right -= 3
             left -= 1
         return ''.join(res)
