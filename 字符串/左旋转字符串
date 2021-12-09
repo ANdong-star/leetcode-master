@@ -13,3 +13,24 @@
 1 <= k < s.length <= 10000
 
 代码：
+class Solution:
+    def reverseLeftWords(self, s: str, n: int) -> str:
+        def reverse(self, nums, left, right):
+            while left < right:
+                nums[left], nums[right] = nums[right], nums[left]
+                left += 1
+                right -= 1
+            # print(nums)
+            
+            return None
+
+        s = list(s)
+        l = len(s)-1
+        reverse(self, s, 0, n-1)
+        reverse(self, s, n, l)
+        reverse(self, s, 0, l)
+
+        return ''.join(s)
+ 理解：
+ 按照 前n个反转 后面的反转 全部反转的方式
+ 尽量不用库函数 手撕
