@@ -8,9 +8,9 @@
 class Solution:
     def replaceSpace(self, s: str) -> str:
 
-        blank = s.count(' ')
+        blank = s.count(' ')  #计算有多少个空格
         res = list(s)
-        res.extend([' ']*blank*2) 
+        res.extend([' ']*blank*2)  #扩充list长度
         left, right = len(s)-1, len(res)-1
 
         while left >= 0:
