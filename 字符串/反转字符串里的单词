@@ -34,7 +34,7 @@ class Solution:
             
                 if s[f]!= ' ':
                     tmp.append(s[f])
-                elif tmp[-1] != ' ':
+                elif tmp[-1] != ' ':  #这一行写的很好 空格前面不是空格 则当前空格可以加进去
                     tmp.append(s[f])
                 
                 f += 1
