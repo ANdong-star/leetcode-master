@@ -6,7 +6,7 @@ class Solution:
     def fourSum(self, nums: List[int], target: int) -> List[List[int]]:
         ass = []
         n = len(nums)
-        nums.sort()
+        nums.sort()    #要注意先排序
 
         for i in range(n):
             if i > 0 and nums[i] == nums[i-1]: continue
