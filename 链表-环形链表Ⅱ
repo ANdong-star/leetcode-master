@@ -18,7 +18,10 @@ class Solution:
 
         slow, fast = head, head
 
-        while fast and fast.next:    #fast一次跑两步 防止它跳多了
+        while fast and fast.next:    #必须用这个判断语句  None和倒数第一个不行  记住就行了
+                                    #若用 fast.next None的时候没有属性
+                                    #若用 fast.next.next 倒数第一个 或者 None的时候没有属性
+                                    #若用 fast.next.next and fast.next 倒数第一个 第二个不行 倒数第一个的时候fast.next.next没有属性
             fast = fast.next.next
             slow = slow.next
             if fast == slow:
