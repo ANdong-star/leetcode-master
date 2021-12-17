@@ -8,9 +8,9 @@ class Solution:
         records = dict()
 
         for idx, val in enumerate (nums):
-            if (target - val) not in records:
+            if (target - val) not in records:  #没有符合条件的就存储起来
                 records[val] = idx
-            else:
+            else:                               #遇到符合条件的就输出
                 return [records[target - val], idx]
                 
  理解：
