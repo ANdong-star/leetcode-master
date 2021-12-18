@@ -49,7 +49,7 @@ class MyStack:
 # param_4 = obj.empty()
 
 理解：
-队列实现栈  python中的四种queue 没有peek操作 
-list可以实现peek 但是时间复杂度为O(n)
-因此选择 collections 中的 deque 数据类型 
-实现类似于list中的peek操作但是时间复杂度为O(1)
+队列实现栈  python中的四种queue 没有类似peek操作 也无法索引操作 因此实现top的时候比较困难 
+list可以实现类似peek 但是实现peek(0)的时候时间复杂度为O(n)
+因此选择collections中的 deque 数据类型 即双向队列 只使用popleft()和append()功能 来实现单向队列的功能 
+而且 deque支持索引操作 因此可以实现类似peek()的功能  并且时间复杂度为O(1)
