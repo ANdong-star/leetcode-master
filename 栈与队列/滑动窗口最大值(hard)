@@ -1,0 +1,54 @@
+题目：
+给定一个数组 nums，有一个大小为 k 的滑动窗口从数组的最左侧移动到数组的最右侧。你只可以看到在滑动窗口内的 k 个数字。滑动窗口每次只向右移动一位。
+
+返回滑动窗口中的最大值。
+
+进阶：
+你能在线性时间复杂度内解决此题吗？
+
+
+提示：
+
+1 <= nums.length <= 10^5
+-10^4 <= nums[i] <= 10^4
+1 <= k <= nums.length
+
+代码：
+class MyQueue:
+    def __init__(self):
+        self.queue = []
+    def pop(self, value):
+        if self.queue and value == self.queue[0]:
+            self.queue.pop(0)
+    def push(self, value):
+        while self.queue and value > self.queue[-1]:
+            self.queue.pop()
+        self.queue.append(value)
+    def front(self):        
+        return self.queue[0]
+        
+class Solution:
+    def maxSlidingWindow(self, nums: List[int], k: int) -> List[int]:
+        result = []
+        que = MyQueue()
+        for i in range(k):
+            que.push(nums[i])
+        result.append(que.front())
+        for i in range(k, len(nums)):
+            que.pop(nums[i-k])
+            que.push(nums[i])
+            result.append(que.front())
+        return result
+
+
+理解：
+比较难的一道题 最重要的是理解建立的单调队列的作用
+总的来说 随着滑动窗口的移动 单调队列每次都要pop push 求最大值三个操作 
+这三个操作都不是传统意义上的pop push 和求最大值操作 主要是push操作为逻辑的开始 pop和front顺从push
+push 肯定会压入 但是前面只要比压入的小 全部弹出队列  #这就保证了队列最左边肯定是最大值 并且滑动窗口内肯定有要考虑的元素
+pop 看是不是最大值 是最大值才会弹出 
+
+
+
+
+
