@@ -17,3 +17,31 @@
 你可以按任意顺序返回答案。
 
 代码：
+import heapq
+
+class Solution:
+    def topKFrequent(self, nums: List[int], k: int) -> List[int]:
+        map = {}
+
+        for i in nums:
+            map[i] = map.get(i, 0) + 1
+        
+        heap = []
+
+        for key, fre in map.items():
+            heapq.heappush(heap, (fre, key))
+
+            if len(heap) > k:
+                heapq.heappop(heap)
+
+        result = [0] * k
+        # for i in range(k): #不论输出的顺序 
+        for i in range(k-1, -1, -1): #小顶堆依次弹出 结果数组倒序传入值 按由大到小排列
+            result[i] = heapq.heappop(heap)[-1]
+        return result
+
+理解:
+三大步骤
+1. 建立map 存储元素和出现频率的对应关系
+2. 构建小顶堆 按照频率排序 堆长度超过k则弹出
+3. 构建结果数组 倒序读入小顶堆弹出的元素
