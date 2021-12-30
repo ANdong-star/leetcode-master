@@ -1,7 +1,8 @@
 二叉树的存储方式有链式存储和顺序存储两种方式
 在这里实现链式存储的节点定义：
 
-class Tree_Node(self, value):
-  sef.value = value
-  self.lchild = None
-  Self.rchild = None
+class Tree_Node:
+    def __init__(slef, value):
+        sef.value = value
+        self.lchild = None
+        Self.rchild = None
