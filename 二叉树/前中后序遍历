@@ -1,0 +1,71 @@
+题目：
+二叉树的前中后序遍历 返回二叉树所有元素的值
+
+代码：
+
+前序遍历：
+# Definition for a binary tree node.
+# class TreeNode:
+#     def __init__(self, val=0, left=None, right=None):
+#         self.val = val
+#         self.left = left
+#         self.right = right
+class Solution:
+    def preorderTraversal(self, root: Optional[TreeNode]) -> List[int]:
+        results = []
+        def pre_order(node:TreeNode):
+            if node != None:
+                results.append(node.val)
+                pre_order(node.left)
+                pre_order(node.right)
+            return 
+        pre_order(root)
+        return results
+     
+ 后序遍历：
+ # Definition for a binary tree node.
+# class TreeNode:
+#     def __init__(self, val=0, left=None, right=None):
+#         self.val = val
+#         self.left = left
+#         self.right = right
+class Solution:
+    def postorderTraversal(self, root: Optional[TreeNode]) -> List[int]:
+        results = []
+        def post_order(node:TreeNode):
+            if node != None:
+                post_order(node.left)
+                post_order(node.right)
+                results.append(node.val)
+            # return 
+
+        post_order(root)
+        return results
+   
+ 中序遍历：
+ # Definition for a binary tree node.
+# class TreeNode:
+#     def __init__(self, val=0, left=None, right=None):
+#         self.val = val
+#         self.left = left
+#         self.right = right
+class Solution:
+    def inorderTraversal(self, root: Optional[TreeNode]) -> List[int]:
+        results = []
+
+        def in_order(node: TreeNode):
+            if node != None:
+                in_order(node.left)
+                results.append(node.val)
+                in_order(node.right)
+        
+        in_order(root)
+        return results
+    
+理解：
+重点是对递归的理解 
+注意定义了函数要运行 不能用while 要用if判断 while会超出时间限制
+
+另外， 实际面试敲代码的时候 二叉树数据结构定义的类也要敲
+
+ 
