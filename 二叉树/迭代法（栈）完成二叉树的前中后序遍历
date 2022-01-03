@@ -77,4 +77,6 @@ class Solution:
         return results[::-1]
         
 理解：
-
+前序遍历和中序遍历的具体不同 还不理解 有空再理解
+前序遍历和后序遍历 中间相通 
+数组[::-1] 是 [start:end:step]的缺省简写
