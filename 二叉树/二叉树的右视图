@@ -1,0 +1,32 @@
+题目：
+给定一个二叉树的 根节点 root，想象自己站在它的右侧，按照从顶部到底部的顺序，返回从右侧所能看到的节点值。
+
+代码：
+# Definition for a binary tree node.
+# class TreeNode:
+#     def __init__(self, val=0, left=None, right=None):
+#         self.val = val
+#         self.left = left
+#         self.right = right
+class Solution:
+    def rightSideView(self, root: TreeNode) -> List[int]:
+        results = []
+        if not root:
+            return results
+
+        from collections import deque
+        que = deque([root])
+
+        while que:
+            cur = que[-1]
+            results.append(cur.val)
+            for _ in range(len(que)):
+                cur = que.popleft()
+                if cur.left:
+                    que.append(cur.left)
+                if cur.right:
+                    que.append(cur.right)
+        return results
+
+理解：
+每次存队列的最后一个 剩下的弹出并压入孩子节点
