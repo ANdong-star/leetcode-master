@@ -1,0 +1,35 @@
+题目：
+给定一个非空二叉树, 返回一个由每层节点平均值组成的数组。
+
+代码：
+# Definition for a binary tree node.
+# class TreeNode:
+#     def __init__(self, val=0, left=None, right=None):
+#         self.val = val
+#         self.left = left
+#         self.right = right
+class Solution:
+    def averageOfLevels(self, root: Optional[TreeNode]) -> List[float]:
+        results = []
+        if not root:
+            return results
+        from collections import deque
+        que = deque([root])
+
+        while que:
+            l = len(que)
+            sum = 0
+            for _ in range(l):
+                cur = que.popleft()
+                sum += cur.val
+
+                if cur.left:
+                    que.append(cur.left)
+                if cur.right:
+                    que.append(cur.right)
+            results.append(sum/l)
+
+        return results
+     
+理解：
+每次弹出的时候 val加到sum上 最后每一层的平均值 sum除以层长度就可以了
