@@ -1,0 +1,33 @@
+题目：
+给定一棵二叉树的根节点 root ，请找出该二叉树中每一层的最大值。
+
+代码:
+# Definition for a binary tree node.
+# class TreeNode:
+#     def __init__(self, val=0, left=None, right=None):
+#         self.val = val
+#         self.left = left
+#         self.right = right
+class Solution:
+    def largestValues(self, root: Optional[TreeNode]) -> List[int]:
+        results = []
+        if not root:
+            return results
+        from collections import deque
+        que = deque([root])
+
+        while que:
+            max_val = que[0].val
+            for _ in range(len(que)):
+                cur = que.popleft()
+                max_val = cur.val if cur.val > max_val else max_val 
+
+                if cur.left:
+                    que.append(cur.left)
+                if cur.right:
+                    que.append(cur.right)
+            results.append(max_val)
+        return results
+
+理解：
+max_value 起初为队列第一个节点的值  之后每次读节点的时候都比较一下  或者：max_value 初始化为 无穷小
