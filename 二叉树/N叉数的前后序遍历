@@ -1,0 +1,53 @@
+题目：
+给定一个 N 叉树，返回其节点值的 前序遍历或者后序遍历。
+
+代码：
+前序遍历 递归（简单）
+"""
+# Definition for a Node.
+class Node:
+    def __init__(self, val=None, children=None):
+        self.val = val
+        self.children = children
+"""
+
+class Solution:
+    def preorder(self, root: 'Node') -> List[int]:
+        def pre_order(node):
+            results.append(node.val)
+            if node.children:
+                for child in node.children:
+                    pre_order(child)
+            
+        results = []  
+        if not root:
+            return results
+        pre_order(root)
+        return results
+        
+后序遍历 递归（简单）
+"""
+# Definition for a Node.
+class Node:
+    def __init__(self, val=None, children=None):
+        self.val = val
+        self.children = children
+"""
+
+class Solution:
+    def postorder(self, root: 'Node') -> List[int]:
+        results = []
+        def post_order(node:'Node'):
+            if node.children:
+                for child in node.children:
+                    post_order(child)
+            results.append(node.val)
+
+        if not root:
+            return results
+        post_order(root)
+        return results
+        
+理解：
+N叉数与二叉树的不同之处在于对孩子节点的处理稍微不同
+对N叉数来说 对孩子节点for循环处理就可以了        
