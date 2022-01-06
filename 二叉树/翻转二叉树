@@ -47,3 +47,28 @@ class Solution:
         return root
 
 解法三： 层序遍历
+# Definition for a binary tree node.
+# class TreeNode:
+#     def __init__(self, val=0, left=None, right=None):
+#         self.val = val
+#         self.left = left
+#         self.right = right
+class Solution:
+    def invertTree(self, root: TreeNode) -> TreeNode:
+        if not root:
+            return None
+        from collections import deque
+        que = deque([root])
+        while que:
+            cur = que.popleft()
+            cur.left, cur.right = cur.right, cur.left
+
+            if cur.left:
+                que.append(cur.left)
+            if cur.right:
+                que.append(cur.right)
+
+        return root
+
+理解： 
+根据二叉树的遍历方式 交换孩子节点就可以了
