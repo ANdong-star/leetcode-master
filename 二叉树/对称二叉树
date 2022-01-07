@@ -1,0 +1,29 @@
+题目：
+给定一个二叉树，检查它是否是镜像对称的。
+
+代码：
+# Definition for a binary tree node.
+# class TreeNode:
+#     def __init__(self, val=0, left=None, right=None):
+#         self.val = val
+#         self.left = left
+#         self.right = right
+class Solution:
+    def isSymmetric(self, root: TreeNode) -> bool:
+        if not root:
+            return True
+        return self.compare_sysmetric(root.left, root.right)
+
+    def compare_sysmetric(self, left, right):
+        if left == None and right == None: return True  #返回给上一级
+        elif left == None and right != None: return False
+        elif left != None and right == None: return False
+        elif left.val != right.val: return False
+        compare_outside = self.compare_sysmetric(left.left, right.right)
+        compare_inside = self.compare_sysmetric(left.right, right.left)
+        is_same = compare_inside and compare_outside
+        return is_same
+        
+理解：
+递归写法 最后都为None的时候才返回True 而判断是否都为None的前一阶段是两个节点的值相等 注意是.val
+递归的函数跟主函数并列 放在同一个类下面  使用的时候self.就可以了
