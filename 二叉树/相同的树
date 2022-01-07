@@ -1,0 +1,30 @@
+题目：
+给你两棵二叉树的根节点 p 和 q ，编写一个函数来检验这两棵树是否相同。
+
+如果两个树在结构上相同，并且节点具有相同的值，则认为它们是相同的。
+
+ 
+代码：
+# Definition for a binary tree node.
+# class TreeNode:
+#     def __init__(self, val=0, left=None, right=None):
+#         self.val = val
+#         self.left = left
+#         self.right = right
+class Solution:
+    def isSameTree(self, p: TreeNode, q: TreeNode) -> bool:
+        return self.compare_issysmetrical(p, q)
+
+    def compare_issysmetrical(self, left, right):
+        if left == None and right == None: return True
+        elif left != None and right == None: return False
+        elif left == None and right != None: return False
+        elif left.val != right.val: return False
+
+        compare_outside = self.compare_issysmetrical(left.left, right.left)
+        compare_inside = self.compare_issysmetrical(left.right, right.right)
+        is_same = compare_inside and compare_outside
+        return is_same
+
+理解：
+把对称二叉树的代码改一下就可以了  将两个数看成一个数的两个左右子数   比较左孩子的左孩子和右孩子的左孩子 右孩子同理
