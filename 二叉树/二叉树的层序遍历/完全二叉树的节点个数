@@ -28,6 +28,23 @@ class Solution:
 
         return results
 #递归法（时间和空间复杂度更低）
+# Definition for a binary tree node.
+# class TreeNode:
+#     def __init__(self, val=0, left=None, right=None):
+#         self.val = val
+#         self.left = left
+#         self.right = right
+class Solution:
+    def countNodes(self, root: TreeNode) -> int:
+        return self.count_Nodes(root)
+
+    def count_Nodes(self, node):
+        if not node:
+            return 0
+        nums_left = self.count_Nodes(node.left)
+        nums_right = self.count_Nodes(node.right)
+        nums_node = nums_left + nums_right + 1
+        return nums_node
 
 #二：专门求完全二叉树的节点个数 （递归法）
 
