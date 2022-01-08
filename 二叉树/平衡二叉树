@@ -6,7 +6,29 @@
 一个二叉树每个节点 的左右两个子树的高度差的绝对值不超过 1 。
 
 代码：
-
+# Definition for a binary tree node.
+# class TreeNode:
+#     def __init__(self, val=0, left=None, right=None):
+#         self.val = val
+#         self.left = left
+#         self.right = right
+class Solution:
+    def isBalanced(self, root: TreeNode) -> bool:
+        if self.cal_height(root) == -1:
+            return False
+        else:
+            return True
+    def cal_height(self, node):
+        if not node:
+            return 0
+        if (left_height:=self.cal_height(node.left)) == -1:
+            return -1
+        if (right_height:=self.cal_height(node.right)) == -1:
+            return -1
+        if abs(left_height - right_height) > 1:
+            return -1
+        else:
+            return max(left_height, right_height) + 1
 
 理解：
 高度和深度的定义不一样
