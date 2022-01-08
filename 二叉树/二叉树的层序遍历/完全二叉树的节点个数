@@ -1,0 +1,36 @@
+题目：
+给你一棵 完全二叉树 的根节点 root ，求出该树的节点个数。
+
+#一： 求普通二叉树的节点个数
+代码：
+#迭代法 （时间复杂度和空间复杂度相对于递归法更高 但是不用担心栈溢出的风险）
+# Definition for a binary tree node.
+# class TreeNode:
+#     def __init__(self, val=0, left=None, right=None):
+#         self.val = val
+#         self.left = left
+#         self.right = right
+class Solution:
+    def countNodes(self, root: TreeNode) -> int:
+        if not root:
+            return 0
+        from collections import deque
+        que = deque([root])
+        results = 0
+        while que:
+            for _ in range(len(que)):
+                cur = que.popleft()
+                results += 1
+                if cur.left:
+                    que.append(cur.left)
+                if cur.right:
+                    que.append(cur.right)
+
+        return results
+#递归法（时间和空间复杂度更低）
+
+#二：专门求完全二叉树的节点个数 （递归法）
+
+
+
+理解：
