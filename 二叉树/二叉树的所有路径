@@ -1,0 +1,35 @@
+题目：
+给你一个二叉树的根节点 root ，按 任意顺序 ，返回所有从根节点到叶子节点的路径。
+
+叶子节点 是指没有子节点的节点。
+
+代码：
+# Definition for a binary tree node.
+# class TreeNode:
+#     def __init__(self, val=0, left=None, right=None):
+#         self.val = val
+#         self.left = left
+#         self.right = right
+class Solution:
+    def binaryTreePaths(self, root: TreeNode) -> List[str]:
+        if not root:
+            return []
+        path = ''
+        results = []
+        self.treepaths(root, path, results)
+        return results
+
+    def treepaths(self, node, path, results):
+        path += str(node.val)
+        if not node.left and not node.right:
+            results.append(path)
+        else:
+            if node.left:
+                self.treepaths(node.left, path + '->', results)
+            if node.right:
+                self.treepaths(node.right, path + '->', results)
+
+理解：
+理解递归和回溯的结合  返回数组里面的元素是 str类型  + '->'是隐藏回溯 因为没有正式改变path的值  只是传进去参数 
+results 全局变量数组 最终的结果集 一直append 
+判断是否到头的时候不要 if not node: 因此这样path已经打了 '->'了 要往前走一步 
