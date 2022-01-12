@@ -33,11 +33,40 @@ class Solution:
             if condidate_list[i] >= condidate_list[i+1]:
                 return False
         return True
+#正常解法 递归        
+# Definition for a binary tree node.
+# class TreeNode:
+#     def __init__(self, val=0, left=None, right=None):
+#         self.val = val
+#         self.left = left
+#         self.right = right
+class Solution:
+    def isValidBST(self, root: TreeNode) -> bool:
+        condidate_val = -float("INF")
+        def is_validbst(self, node):
+            nonlocal condidate_val
+            if not node:
+                return True
+            is_valid_lefttree = is_validbst(self, node.left)
+            if condidate_val < node.val:
+                condidate_val = node.val
+            else:
+                return False
+
+            is_valid_righttree = is_validbst(self, node.right)
+            return is_valid_lefttree and is_valid_righttree
+
+
+        return is_validbst(self, root)
 
 理解：
 #解法一  利用二叉搜索数中序遍历序列的特征来做
-#解法二 
+#解法二  定义一个极小值 中序遍历 递归比较  
+#解法三 迭代  后面好好再看一看
 
-
-
+要注意的陷阱：
+1. 不是每次 左孩子的值小于根节点的值小于右孩子的值就行了 而是根节点的左子树所有节点的值都要小于根节点的值 右子树所有节点的值都要大于根节点的值 
+   这就要求递归的时候定义一个 非局部变量 代表了左子树最大的值 在中序遍历的时候就逐一比较 
+2. 初次定义的最小值 题目的case里面存在 int型极小值 所有定义float型极小值 但如果case里有float型极小值呢？
+ 
 
