@@ -31,4 +31,4 @@ class Solution:
 理解：
 1. 不用self 也行
 2. 不能用path作为形参 因为path.append()再赋值的时候 返回的是None
-3. 要results.append(path([:]))  results.append(path)不可以
+3. 要results.append(path([:]))  results.append(path)不可以 这里不知道是因为什么
