@@ -1,0 +1,44 @@
+题目：
+给你二叉树的根节点 root 和一个表示目标和的整数 targetSum 。判断该树中是否存在 根节点到叶子节点 的路径，这条路径上所有节点值相加等于目标和 targetSum 。如果存在，返回 true ；否则，返回 false 。
+
+代码：
+# Definition for a binary tree node.
+# class TreeNode:
+#     def __init__(self, val=0, left=None, right=None):
+#         self.val = val
+#         self.left = left
+#         self.right = right
+class Solution:
+    def hasPathSum(self, root: Optional[TreeNode], targetSum: int) -> bool:
+        if not root:
+            return False
+        def pathsum(slef, node, targetSum):
+            if not node.left and not node.right and targetSum == 0: return True
+            if not node.left and not node.right: return False
+            if node.left:
+                if pathsum(self, node.left, targetSum - node.left.val): return True
+            if node.right:
+                if pathsum(self, node.right, targetSum - node.right.val): return True
+            return False
+                
+        return pathsum(self, root, targetSum - root.val)
+
+理解：
+采用递归的方式 
+首先明确递归需不需要返回值
+1. 遍历整棵树 不需要处理返回值 不需要返回值
+2. 遍历整棵树 需要处理返回值 需要返回值 
+3. 搜索一条符合条件的路径 一定需要返回值 
+本题属于第三种情况 遇到符合条件的情况直接返回 因此需要返回值
+
+递归需要考虑的三个方面：
+1. 参数 根节点 和 减去前面节点值剩下的值
+2. 终止条件 到达叶子节点 且 剩下0
+3. 单层递归的逻辑  处理左右节点有无符合条件的路径 否则返回False
+
+此外，关于函数调用的问题 本题中def的函数 pathsum 定义在主函数内 调用的时候需要先定义再使用 且调用时不是self. 而是 在括号内写self 
+
+
+
+
+
