@@ -33,6 +33,7 @@ class Solution:
             if condidate_list[i] >= condidate_list[i+1]:
                 return False
         return True
+        
 #正常解法 递归        
 # Definition for a binary tree node.
 # class TreeNode:
@@ -43,6 +44,7 @@ class Solution:
 class Solution:
     def isValidBST(self, root: TreeNode) -> bool:
         condidate_val = -float("INF")
+        # condidate_val = None
         def is_validbst(self, node):
             nonlocal condidate_val
             if not node:
@@ -52,6 +54,16 @@ class Solution:
                 condidate_val = node.val
             else:
                 return False
+
+            # if condidate_val == None:
+            #     condidate_val = node.val
+            # elif condidate_val < node.val:
+            #     condidate_val = node.val
+            # else:
+            #     return False
+            ####下面这段代码与上面打注释的那段代码作用一样
+            # if condidate_val != None and condidate_val >= node.val: return False
+            # condidate_val = node.val
 
             is_valid_righttree = is_validbst(self, node.right)
             return is_valid_lefttree and is_valid_righttree
@@ -68,5 +80,19 @@ class Solution:
 1. 不是每次 左孩子的值小于根节点的值小于右孩子的值就行了 而是根节点的左子树所有节点的值都要小于根节点的值 右子树所有节点的值都要大于根节点的值 
    这就要求递归的时候定义一个 非局部变量 代表了左子树最大的值 在中序遍历的时候就逐一比较 
 2. 初次定义的最小值 题目的case里面存在 int型极小值 所有定义float型极小值 但如果case里有float型极小值呢？
+可以这样：
+            # condidate_val = None
+            
+            
+            # if condidate_val == None:
+            #     condidate_val = node.val
+            # elif condidate_val < node.val:
+            #     condidate_val = node.val
+            # else:
+            #     return False
+            ###或者
+            ####下面这段代码与上面打注释的那段代码作用一样
+            # if condidate_val != None and condidate_val >= node.val: return False
+            # condidate_val = node.val
  
 
