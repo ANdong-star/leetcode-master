@@ -1,0 +1,30 @@
+题目：
+给定一个不含重复元素的整数数组 nums 。一个以此数组直接递归构建的 最大二叉树 定义如下：
+
+二叉树的根是数组 nums 中的最大元素。
+左子树是通过数组中 最大值左边部分 递归构造出的最大二叉树。
+右子树是通过数组中 最大值右边部分 递归构造出的最大二叉树。
+返回有给定数组 nums 构建的 最大二叉树 。
+
+代码：
+# Definition for a binary tree node.
+# class TreeNode:
+#     def __init__(self, val=0, left=None, right=None):
+#         self.val = val
+#         self.left = left
+#         self.right = right
+class Solution:
+    def constructMaximumBinaryTree(self, nums: List[int]) -> TreeNode:
+        if not nums:
+            return None
+        max_value = max(nums)
+        root = TreeNode(max_value)
+        max_value_index = nums.index(max_value)
+        left_nums = nums[:max_value_index]
+        right_nums = nums[max_value_index + 1:]
+        root.left = self.constructMaximumBinaryTree(left_nums)
+        root.right = self.constructMaximumBinaryTree(right_nums) 
+        return root
+
+理解:
+明白最大二叉树的定义  递归的话掌握递归的几个要素 
