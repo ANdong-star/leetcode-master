@@ -1,0 +1,43 @@
+题目：
+给你一个二叉树的根节点 root ，判断其是否是一个有效的二叉搜索树。
+
+有效 二叉搜索树定义如下：
+
+节点的左子树只包含 小于 当前节点的数。
+节点的右子树只包含 大于 当前节点的数。
+所有左子树和右子树自身必须也是二叉搜索树。
+
+代码：
+#利用二叉搜索树中序遍历后序列的特性来做 但实际上会多很多步操作 
+# Definition for a binary tree node.
+# class TreeNode:
+#     def __init__(self, val=0, left=None, right=None):
+#         self.val = val
+#         self.left = left
+#         self.right = right
+class Solution:
+    def isValidBST(self, root: TreeNode) -> bool:
+        condidate_list = []
+        if not root:
+            return False
+        def order(self, node):
+            if not node:
+                return 
+            if node.left:
+                order(self, node.left)
+            condidate_list.append(node.val)
+            if node.right:
+                order(self, node.right)
+        order(self, root)
+        for i in range(len(condidate_list)-1):
+            if condidate_list[i] >= condidate_list[i+1]:
+                return False
+        return True
+
+理解：
+#解法一  利用二叉搜索数中序遍历序列的特征来做
+#解法二 
+
+
+
+
