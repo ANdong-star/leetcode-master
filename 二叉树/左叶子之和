@@ -1,0 +1,27 @@
+题目：
+计算给定二叉树的所有左叶子之和。
+
+代码：
+# Definition for a binary tree node.
+# class TreeNode:
+#     def __init__(self, val=0, left=None, right=None):
+#         self.val = val
+#         self.left = left
+#         self.right = right
+class Solution:
+    def sumOfLeftLeaves(self, root: TreeNode) -> int:
+        if not root:
+            return 0  #代表递归终止了
+        left_leftleave_sum = self.sumOfLeftLeaves(root.left)  #传入的是父亲节点 
+        right_leftleave_sum = self.sumOfLeftLeaves(root.right)
+
+        cur_leftleave = 0
+        if root.left and not root.left.left and not root.left.right:
+            cur_leftleave = root.left.val
+        return left_leftleave_sum + right_leftleave_sum + cur_leftleave   #传出所有的左节点的值的和
+        
+
+理解：
+1.掌握左叶子的定义 和代码判定方式 父亲节点的左孩子有 并且左孩子无孩子 则左孩子为左叶子
+2. 递归的方式 后序遍历的顺序（感觉后面可以试试其他遍历方式行不行） 递归要确定传入和返回参数 以及 终止条件   还要思考单层递归的逻辑
+
