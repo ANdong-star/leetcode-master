@@ -1,0 +1,54 @@
+题目：
+给定一个有相同值的二叉搜索树（BST），找出 BST 中的所有众数（出现频率最高的元素）。
+
+假定 BST 有如下定义：
+
+结点左子树中所含结点的值小于等于当前结点的值
+结点右子树中所含结点的值大于等于当前结点的值
+左子树和右子树都是二叉搜索树
+
+代码：
+# Definition for a binary tree node.
+# class TreeNode:
+#     def __init__(self, val=0, left=None, right=None):
+#         self.val = val
+#         self.left = left
+#         self.right = right
+class Solution:
+    def __init__(self):
+
+        self.count = 0
+        self.max_count = 0
+        self.pre = TreeNode()
+        self.results = []
+
+    def findMode(self, root: TreeNode) -> List[int]:
+        if not root:
+            return None
+        self.inorder(root)
+        return self.results
+        
+    def inorder(self, node):
+        if not node:
+            return None
+        self.findMode(node.left)
+        if not self.pre:
+            self.count = 1
+        elif self.pre.val == node.val:
+            self.count += 1
+        else:
+            self.count = 1
+        self.pre = node
+        if self.count == self.max_count:
+            self.results.append(node.val)
+
+        if self.count > self.max_count:
+            self.results = [node.val]
+            self.max_count = self.count
+        
+        self.findMode(node.right)
+
+理解：
+中序遍历本身是有序的  另外如何在最大count更新的时候更新结果集需要掌握 if self.count > self.max_count: results = [node.val] 这种操作可以节约时间和空间
+此外 可以通过定义初始化函数来定义self变量 这样每次调用变量的时候别忘了加self.
+
