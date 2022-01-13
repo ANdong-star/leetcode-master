@@ -1,0 +1,30 @@
+题目：
+给你一个二叉搜索树的根节点 root ，返回 树中任意两不同节点值之间的最小差值 。
+
+差值是一个正数，其数值等于两值之差的绝对值。
+
+代码：
+# Definition for a binary tree node.
+# class TreeNode:
+#     def __init__(self, val=0, left=None, right=None):
+#         self.val = val
+#         self.left = left
+#         self.right = right
+class Solution:
+    def getMinimumDifference(self, root: TreeNode) -> int:
+        res = []
+        minval = float('INF')
+        def inorder(self, node):
+            if not node:
+                return 
+            inorder(self, node.left)
+            res.append(node.val)
+            inorder(self, node.right)
+        inorder(self, root)
+        # print(res)
+        for i in range(len(res) - 1):
+            minval = min(abs(res[i] - res[i + 1]), minval)
+        return minval
+
+理解:
+根据搜索二叉树中序遍历序列的特性来做比较简单 但会增加内存  后面再看一下迭代法做这道题
