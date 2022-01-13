@@ -1,0 +1,34 @@
+题目：
+给定一个二叉树, 找到该树中两个指定节点的最近公共祖先。
+
+百度百科中最近公共祖先的定义为：“对于有根树 T 的两个节点 p、q，最近公共祖先表示为一个节点 x，满足 x 是 p、q 的祖先且 x 的深度尽可能大（一个节点也可以是它自己的祖先）。
+
+代码：
+# Definition for a binary tree node.
+# class TreeNode:
+#     def __init__(self, x):
+#         self.val = x
+#         self.left = None
+#         self.right = None
+
+class Solution:
+    def lowestCommonAncestor(self, root: 'TreeNode', p: 'TreeNode', q: 'TreeNode') -> 'TreeNode':
+        if not root or root.val == p.val or root.val == q.val:
+            return root
+        
+        left = self.lowestCommonAncestor(root.left, p, q)
+        right = self.lowestCommonAncestor(root.right, p, q)
+
+        if left and right:
+            return root
+        elif left:
+            return left
+        else:
+            return right
+
+理解：
+代码比较简洁 但其实不好理解
+首先， 自底向上查找 使用后序遍历
+其次， 这道题因为递归要有返回值 用left和right来判断传上来的是哪个节点 空节点 或者 一个值对应的节点 或者两个值对应的root节点 因此依然要遍历整棵树 
+一般来说不遍历整棵树的语法结构 是if return 
+最后 理解 后序遍历 对后序节点的处理逻辑  return什么
