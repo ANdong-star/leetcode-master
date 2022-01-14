@@ -52,3 +52,47 @@ class Solution:
 
 理解：
 分五种情况 主要是第五种情况的理解 第五种情况的处理也符合二叉搜索树的性质
+此外，其实可以不需要缓存节点 直接覆盖 删除缓存的代码如下:
+# Definition for a binary tree node.
+# class TreeNode:
+#     def __init__(self, val=0, left=None, right=None):
+#         self.val = val
+#         self.left = left
+#         self.right = right
+class Solution:
+    def deleteNode(self, root: Optional[TreeNode], key: int) -> Optional[TreeNode]:
+        #第一种情况 找到底找到None
+        if not root:
+            return None
+
+        if root.val == key:
+            #第二种情况 左右孩子都为空
+            if not root.left and not root.right:
+                del root
+                return None
+            #第三种情况
+            if not root.left and root.right:
+                # tmp = root
+                root = root.right
+                # del tmp
+                return root
+            #第四种情况
+            if not root.right and root.left:
+                # tmp = root
+                root = root.left
+                # del tmp 
+                return root
+            #第五种情况
+            if root.left and root.right:
+                tmp2 = root.right
+                while tmp2.left:
+                    tmp2 = tmp2.left
+                tmp2.left = root.left
+                # tmp = root
+                root = root.right
+                # del tmp
+                return root
+        if root.val > key: root.left = self.deleteNode(root.left, key)
+        if root.val < key: root.right = self.deleteNode(root.right, key)
+        return root
+                
