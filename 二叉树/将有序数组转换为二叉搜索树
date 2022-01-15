@@ -1,0 +1,31 @@
+题目：
+给你一个整数数组 nums ，其中元素已经按 升序 排列，请你将其转换为一棵 高度平衡 二叉搜索树。
+
+高度平衡 二叉树是一棵满足「每个节点的左右两个子树的高度差的绝对值不超过 1 」的二叉树。
+
+代码：
+# Definition for a binary tree node.
+# class TreeNode:
+#     def __init__(self, val=0, left=None, right=None):
+#         self.val = val
+#         self.left = left
+#         self.right = right
+class Solution:
+    def sortedArrayToBST(self, nums: List[int]) -> TreeNode:
+        return self.traversal(nums, 0, len(nums) - 1)
+
+    def traversal(self, nums, left, right):
+        if left > right:
+            return None
+        mid = (left + right) // 2
+        root = TreeNode(nums[mid])
+
+        root.left = self.traversal(nums, left, mid - 1)
+        root.right = self.traversal(nums, mid + 1,right)
+        return root
+
+理解：
+若每次都取中间元素作为每颗树的根节点的话  则肯定会是高度平衡的
+主要是理解递归 用返回值来直接赋值给左右孩子节点 
+因此需要传入 左右下标 所以还得在定义一个函数来递归 不能直接在原函数上递归 
+此外 mid = (left + right) // 2 可以写成 mid = left + (right - left) // 2 这样可以防止出现两个最大值数造成越界 本题中不用担心这种情况 但是还是要养成这样习惯
