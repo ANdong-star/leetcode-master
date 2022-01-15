@@ -1,0 +1,27 @@
+题目：
+给出二叉 搜索 树的根节点，该树的节点值各不相同，请你将其转换为累加树（Greater Sum Tree），使每个节点 node 的新值等于原树中大于或等于 node.val 的值之和。
+
+代码：
+# Definition for a binary tree node.
+# class TreeNode:
+#     def __init__(self, val=0, left=None, right=None):
+#         self.val = val
+#         self.left = left
+#         self.right = right
+class Solution:
+    def __init__(self):
+        self.pre = 0
+
+    def convertBST(self, root: Optional[TreeNode]) -> Optional[TreeNode]:
+        if not root:
+            return None
+        self.convertBST(root.right)
+        root.val += self.pre
+        self.pre = root.val
+        self.convertBST(root.left)
+        return root
+        
+理解：
+1.理解累加数的意思 所有大于本节点的其他节点的值的和加上本节点的值 根据二叉搜索树的特征 中序遍历正好可以按顺序排列
+2. 采用右中左的顺序遍历的话 正好可以先处理最大的 则小的依次可以加入前面处理的大的值 
+3. 每次计算新的节点的值的时候 其实新节点的值已经加入了前面处理的所有比它大的节点的值了  所有赋值给pre的时候直接等于就可以了
