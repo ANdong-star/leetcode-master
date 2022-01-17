@@ -1,1 +1,43 @@
+题目：
+给定两个整数 n 和 k，返回范围 [1, n] 中所有可能的 k 个数的组合。
 
+你可以按 任何顺序 返回答案
+
+代码：
+#未剪枝
+class Solution:
+    def combine(self, n: int, k: int) -> List[List[int]]:
+        patch = []
+        results = []
+        def backtracking(n, k, StartIndex):
+            if len(patch) == k:
+                results.append(patch[:]) 
+            for i in range(StartIndex,n + 1):
+                patch.append(i)
+                backtracking(n, k, i + 1)
+                patch.pop()
+        backtracking(n, k, 1)
+        return results
+            
+#加剪枝
+class Solution:
+    def combine(self, n: int, k: int) -> List[List[int]]:
+        patch = []
+        results = []
+        def backtracking(n, k, StartIndex):
+            if len(patch) == k:
+                results.append(patch[:]) 
+                return #要返回！！
+            for i in range(StartIndex, n - (k - len(patch)) + 2):
+            # for i in range(StartIndex, n + 1):
+                patch.append(i)
+                backtracking(n, k, i + 1)
+                patch.pop()
+        backtracking(n, k, 1)
+        return results
+            
+理解：
+可以按照模板来
+重点体会剪枝的代码少遍历 k - len(patch) - 1 长度 
+k - len(patch) 表示还缺少的长度
+另外 符合条件后 要返回 不用接着遍历了 
