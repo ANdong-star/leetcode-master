@@ -1,0 +1,31 @@
+题目：
+找出所有相加之和为 n 的 k 个数的组合。组合中只允许含有 1 - 9 的正整数，并且每种组合中不存在重复的数字。
+
+代码：
+class Solution:
+    def __init__(self):
+        self.results = []
+        self.path = []
+        self.sum_now = 0  
+    
+    def combinationSum3(self, k: int, n: int) -> List[List[int]]:
+        self.backtracking(n, k, 1)
+        return self.results
+
+    def backtracking(self, n, k, StartIndex):
+        if self.sum_now > n:
+            return
+        if self.sum_now == n and len(self.path) == k:
+            self.results.append(self.path[:])
+            return 
+        for i in range(StartIndex, 10 - (k - len(self.path)) + 1):
+            self.path.append(i)
+            self.sum_now += i
+            self.backtracking(n, k, i + 1)
+            self.path.pop()
+            self.sum_now -= i
+
+理解：
+组合问题的进化版
+定义sum_now 注意不能用sum作为变量 这是python的的关键字
+剪枝操作如上
