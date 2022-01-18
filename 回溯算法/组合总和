@@ -1,0 +1,40 @@
+题目：
+给你一个 无重复元素 的整数数组 candidates 和一个目标整数 target ，找出 candidates 中可以使数字和为目标数 target 的 所有不同组合 ，并以列表形式返回。你可以按 任意顺序 返回这些组合。
+
+candidates 中的 同一个 数字可以 无限制重复被选取 。如果至少一个数字的被选数量不同，则两种组合是不同的。 
+
+对于给定的输入，保证和为 target 的不同组合数少于 150 个。
+
+代码：
+#无剪枝
+class Solution:
+    def __init__(self):
+        self.path = []
+        self.results = []
+
+    def combinationSum(self, candidates: List[int], target: int) -> List[List[int]]:
+        self.backtracking(candidates, target, 0, 0)
+        return self.results
+    
+    def backtracking(self, candidates, target, sum_, start_index):
+        if sum_ == target:
+            self.results.append(self.path[:])
+            return 
+        if sum_ > target:
+            return 
+        
+        for i in range(start_index, len(candidates)):
+            self.path.append(candidates[i])
+            sum_ += candidates[i]
+            self.backtracking(candidates, target, sum_, i)
+            self.path.pop()
+            sum_ -= candidates[i]
+
+#有剪枝
+理解：
+两个特性： 1.可以重复 2.不限数量
+
+
+
+
+
