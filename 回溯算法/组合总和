@@ -31,9 +31,35 @@ class Solution:
             sum_ -= candidates[i]
 
 #有剪枝
+class Solution:
+    def __init__(self):
+        self.path = []
+        self.results = []
+
+    def combinationSum(self, candidates: List[int], target: int) -> List[List[int]]:
+        candidates.sort()
+        self.backtracking(candidates, target, 0, 0)
+        return self.results
+    
+    def backtracking(self, candidates, target, sum_, start_index):
+        if sum_ == target:
+            self.results.append(self.path[:])
+            return 
+        # if sum_ > target:
+        #     return 
+        
+        for i in range(start_index, len(candidates)):
+            if sum_ + candidates[i] > target:
+                return 
+            self.path.append(candidates[i])
+            sum_ += candidates[i]
+            self.backtracking(candidates, target, sum_, i)
+            self.path.pop()
+            sum_ -= candidates[i]
+            
 理解：
 两个特性： 1.可以重复 2.不限数量
-
+剪枝操作还得先排序
 
 
 
