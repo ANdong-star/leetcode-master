@@ -1,0 +1,62 @@
+题目：
+给你一个由候选元素组成的集合 candidates 和一个目标数 target ，找出 candidates 中所有可以使数字和为 target 的组合。
+
+candidates 中的每个元素在每个组合中只能使用 一次 。
+
+注意：解集不能包含重复的组合。
+
+代码：
+class Solution:
+    def __init__(self):
+        self.path = []
+        self.results = []
+        self.used = []
+    
+    def combinationSum2(self, candidates: List[int], target: int) -> List[List[int]]:
+        candidates.sort()  #剪枝需要排序
+        self.used = [False]*len(candidates)
+        self.backtracking(candidates, target, 0, 0)
+        return self.results
+
+    def backtracking(self, candidates, target, sum_, Start_Index):
+        if sum_ == target:
+            self.results.append(self.path[:])
+            return 
+        for i in range(Start_Index, len(candidates)):
+            if sum_ + candidates[i] > target:  #剪枝
+                return 
+            if i > 0 and candidates[i] == candidates[i - 1] and self.used[i - 1] == False:
+                continue
+            self.path.append(candidates[i])
+            sum_ += candidates[i]
+            self.used[i] = True
+            self.backtracking(candidates, target, sum_, i+1)
+            self.used[i] = False
+            sum_ -= candidates[i]
+            self.path.pop()
+        
+理解：
+本题有两个特点：
+1. 同一组合中可以出现重复元素  
+2. 不同组合需要去重 
+因此需要有去重操作  遇到重复的时候跳过 去重有树枝去重和树层去重 本题是树层去重 可以用used的数组来达到这一目的
+
+此外 在__init__()函数里定义了self变量 后面用的时候一定想着带着self使用
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
