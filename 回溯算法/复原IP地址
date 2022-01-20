@@ -1,0 +1,42 @@
+题目：
+有效 IP 地址 正好由四个整数（每个整数位于 0 到 255 之间组成，且不能含有前导 0），整数之间用 '.' 分隔。
+
+例如："0.1.2.201" 和 "192.168.1.1" 是 有效 IP 地址，但是 "0.011.255.245"、"192.168.1.312" 和 "192.168@1.1" 是 无效 IP 地址。
+给定一个只包含数字的字符串 s ，用以表示一个 IP 地址，返回所有可能的有效 IP 地址，这些地址可以通过在 s 中插入 '.' 来形成。你不能重新排序或删除 s 中的任何数字。你可以按 任何 顺序返回答案。
+
+代码：
+class Solution:
+    def __init__(self):
+        self.results = []
+    
+    def restoreIpAddresses(self, s: str) -> List[str]:
+        if len(s) > 12:
+            return []
+        self.backtracking(s, 0, 0)
+        return self.results
+    
+    def backtracking(self, s, Start_Index, point_num):
+        if point_num == 3 and self.is_valid(s, Start_Index, len(s)-1):
+            self.results.append(s[:])
+        for i in range(Start_Index, len(s)):
+            if self.is_valid(s, Start_Index, i):
+                point_num += 1
+                s = s[0:i+1] + '.' + s[i+1:]
+                self.backtracking(s, i + 2, point_num)
+                point_num -= 1
+                s = s[0:i+1] + s[i+2:]
+            else:
+                return 
+    
+    def is_valid(self, s, start, end):
+        if start > end:
+            return False
+        if s[start] == '0' and start != end:
+            return False
+        if not 0 <= int(s[start:end+1]) <= 255:
+            return False
+        return True
+
+理解：
+在原有字符串上进行处理 加'.' 
+注意最后point_num 够数了之后最后一段也要验证是否有效
