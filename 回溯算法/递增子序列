@@ -1,0 +1,42 @@
+题目：
+给你一个整数数组 nums ，找出并返回所有该数组中不同的递增子序列，递增子序列中 至少有两个元素 。你可以按 任意顺序 返回答案。
+
+数组中可能含有重复元素，如出现两个整数相等，也可以视作递增序列的一种特殊情况。
+
+
+代码：
+class Solution:
+    def __init__(self):
+        self.path = []
+        self.results = []
+
+    def findSubsequences(self, nums: List[int]) -> List[List[int]]:
+        if len(nums) < 2:
+            return []
+        self.backtracking(nums, 0)
+        return self.results
+
+    def backtracking(self, nums, Start_Index):
+        if len(self.path) >= 2:
+            self.results.append(self.path[:])
+        if Start_Index == len(nums):
+            return 
+        usage_list = set()
+
+        for i in range(Start_Index, len(nums)):
+            if (self.path and nums[i] < self.path[-1]) or nums[i] in usage_list:
+                continue
+            else:
+                usage_list.add(nums[i])
+                self.path.append(nums[i])
+                self.backtracking(nums, i+1)
+                self.path.pop()
+
+理解：
+一共有两个需要注意的地方：
+1. 一个是不能重复 因此是树层去重 专门在循环之前定义一个set来消重
+2. 递增 这个如果刚开始不排序的话 就每次都判断一下本元素是否小于前面一个元素就可以
+
+本题一个重点是对递归的理解 来帮助理解为何定义的set数组可以消重而每次递归的时候不会重置
+把递归想象成完成一个又一个相同的子任务 每次任务的逻辑都是一样的 在本任务的抽象树中就是处理不同的子树  在树的同层遍历中 其实set不会被重置 因此可以记录之前处理过的元素从而消重
+
