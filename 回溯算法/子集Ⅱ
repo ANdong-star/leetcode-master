@@ -1,0 +1,30 @@
+题目：
+给你一个整数数组 nums ，其中可能包含重复元素，请你返回该数组所有可能的子集（幂集）。
+
+解集 不能 包含重复的子集。返回的解集中，子集可以按 任意顺序 排列。
+
+代码：
+class Solution:
+    def __init__(self):
+        self.path = []
+        self.results = []
+
+    def subsetsWithDup(self, nums: List[int]) -> List[List[int]]:
+        if not nums:
+            return []
+        nums.sort()
+        self.backtracking(nums, 0)
+        return self.results
+
+    def backtracking(self, nums, Start_Index):
+        self.results.append(self.path[:])
+        
+        for i in range(Start_Index, len(nums)):
+            if i > Start_Index and nums[i] == nums[i - 1]:  # i > Start_Index 表示在同一层遍历了
+                continue
+            else:
+                self.path.append(nums[i])
+                self.backtracking(nums, i+1)
+                self.path.pop()
+理解：
+跟普通子集题目多了个树层去重
