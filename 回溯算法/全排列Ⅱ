@@ -1,0 +1,34 @@
+题目：
+给定一个可包含重复数字的序列 nums ，按任意顺序 返回所有不重复的全排列。
+
+代码：
+class Solution:
+    def __init__(self):
+        self.path = []
+        self.results = []
+    
+    def permuteUnique(self, nums: List[int]) -> List[List[int]]:
+        nums.sort()
+        used_list = [False] * len(nums)
+        self.backtracking(nums, used_list)
+        return self.results
+    
+    def backtracking(self, nums, used_list):
+        if len(nums) == len(self.path):
+            self.results.append(self.path[:])
+            return 
+        for i in range(len(nums)):
+            if used_list[i] == False:
+                if i > 0 and nums[i] == nums[i-1] and used_list[i-1] == False:
+                    continue
+                used_list[i] = True
+                self.path.append(nums[i])
+                self.backtracking(nums, used_list)
+                self.path.pop()
+                used_list[i] = False
+            else:
+                continue
+            
+理解：
+一个是去重 去重复结果 而一个结果里的重复元素不要紧 采取的方法是先把数据排列 之后前一个跟后一个相同 并且前一个没有用 说明在同一树层 从而去重
+一个是同一个元素最多用一次 同全排列原始题一样 每个元素用过之后占坑 同树枝上则下一个不能用
