@@ -1,0 +1,31 @@
+题目：
+给定一个不含重复数字的数组 nums ，返回其 所有可能的全排列 。你可以 按任意顺序 返回答案。
+
+代码：
+class Solution:
+    def __init__(self):
+        self.path = []
+        self.results = []
+
+    def permute(self, nums: List[int]) -> List[List[int]]:
+        used_list = [False] * len(nums)
+        self.backtracking(nums, used_list)
+        return self.results
+
+    def backtracking(self, nums, used_list):
+        if len(nums) == len(self.path):
+            self.results.append(self.path[:])
+            return
+        
+        for i in range(0, len(nums)):
+            if used_list[i] == True:
+                continue
+        
+            used_list[i] = True
+            self.path.append(nums[i])
+            self.backtracking(nums, used_list)
+            self.path.pop()
+            used_list[i] = False
+
+理解：
+全排列要有顺序 因此不需要Start_Index 都是从0开始 但是元素不能重复使用 
