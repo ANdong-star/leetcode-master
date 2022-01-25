@@ -1,0 +1,55 @@
+题目：
+编写一个程序，通过填充空格来解决数独问题。
+
+数独的解法需 遵循如下规则：
+
+数字 1-9 在每一行只能出现一次。
+数字 1-9 在每一列只能出现一次。
+数字 1-9 在每一个以粗实线分隔的 3x3 宫内只能出现一次。（请参考示例图）
+数独部分空格内已填入了数字，空白格用 '.' 表示。
+
+
+代码：
+class Solution:
+    def solveSudoku(self, board: List[List[str]]) -> None:
+        """
+        Do not return anything, modify board in-place instead.
+        """
+        self.backtraking(board)
+                    
+    def backtraking(self, board):
+        for i in range(len(board)):
+            for j in range(len(board[0])):
+                if board[i][j] != '.': continue
+                for k in range(1, 10):
+                    if self.is_valid(i, j, k, board):
+                        board[i][j] = str(k) 
+                        if self.backtraking(board): return True
+                        board[i][j] = '.'
+                return False
+        return True
+
+    def is_valid(self, row, col, val, board):
+        #判断每列是否符合
+        for i in range(9):
+            if board[row][i] == str(val):
+                return False
+        #判断每行是否符合
+        for j in range(9):
+            if board[j][col] == str(val):
+                return False
+        
+        #判断9宫格是否符合
+        start_row = (row // 3) * 3
+        start_col = (col // 3) * 3
+        for i in range(start_row, start_row + 3):
+            for j in range(start_col, start_col + 3):
+                if board[i][j] == str(val):
+                    return False
+        return True
+        
+理解：
+一个是判断所在的点选择的数字是否符合规则
+一个是每行每列都要递归
+
+
