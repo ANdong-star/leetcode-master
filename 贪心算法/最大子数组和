@@ -1,0 +1,22 @@
+题目：
+给你一个整数数组 nums ，请你找出一个具有最大和的连续子数组（子数组最少包含一个元素），返回其最大和。
+
+子数组 是数组中的一个连续部分。
+
+代码：
+class Solution:
+    def maxSubArray(self, nums: List[int]) -> int:
+        count = 0
+        res = -float('inf')
+
+        for i in range(len(nums)):
+            count += nums[i]
+            if count > res:
+                res = count
+            if count <= 0:
+                count = 0
+        return res
+
+理解：
+其实难点在于理解当出现一个数直接把前面所有数的和都给变成负数了 那就是重新开始的时候了、
+最大的和其实是一直在更新的 这个好理解
