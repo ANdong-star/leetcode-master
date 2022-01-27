@@ -1,0 +1,24 @@
+题目：
+给定一个非负整数数组 nums ，你最初位于数组的 第一个下标 。
+
+数组中的每个元素代表你在该位置可以跳跃的最大长度。
+
+判断你是否能够到达最后一个下标。
+
+代码：
+class Solution:
+    def canJump(self, nums: List[int]) -> bool:
+        cover = 0
+        i = 0
+        while i <= cover:
+            cover = max(i + nums[i], cover)
+            if cover >= len(nums) - 1:
+                return True
+            i += 1
+        return False
+
+理解：
+cover是在目前的位置能覆盖到的最远的位置
+i是目前所在的位置 
+当读到的目前的位置i超过了能覆盖的最远位置之后 就False了 
+当cover能覆盖到最后一个位置时 True
