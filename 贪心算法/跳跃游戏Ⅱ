@@ -1,0 +1,27 @@
+题目：
+给你一个非负整数数组 nums ，你最初位于数组的第一个位置。
+
+数组中的每个元素代表你在该位置可以跳跃的最大长度。
+
+你的目标是使用最少的跳跃次数到达数组的最后一个位置。
+
+假设你总是可以到达数组的最后一个位置。
+
+代码：
+class Solution:
+    def jump(self, nums: List[int]) -> int:
+        curdistance = 0
+        nextdistance = 0
+        result = 0
+        for i in range(len(nums)):
+            nextdistance = max((i + nums[i]), nextdistance)
+            if i == curdistance:
+                if curdistance < len(nums) - 1:
+                    result += 1
+                    curdistance = nextdistance
+                    if nextdistance >= len(nums) - 1: break
+        return result
+                
+理解：
+刚开始在curdistance的范围内动 看能不能到终点 这段时候实时存储再走一步能达到的最远距离 
+如果当前的范围到不了 那就更新当前距离 把下一步的更新进来 步数那就必须加一了
