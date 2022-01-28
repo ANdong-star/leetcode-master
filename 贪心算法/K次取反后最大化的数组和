@@ -1,0 +1,27 @@
+题目：
+给你一个整数数组 nums 和一个整数 k ，按以下方法修改该数组：
+
+选择某个下标 i 并将 nums[i] 替换为 -nums[i] 。
+重复这个过程恰好 k 次。可以多次选择同一个下标 i 。
+
+以这种方式修改数组后，返回数组 可能的最大和 。
+
+
+代码：
+class Solution:
+    def largestSumAfterKNegations(self, nums: List[int], k: int) -> int:
+        nums = sorted(nums, key=abs, reverse=True)
+        for i in range(len(nums)):
+            if nums[i] < 0 and k >0:
+                nums[i] *= -1
+                k -= 1
+        if k > 0:
+            nums[-1] *= (-1)**k
+        return sum(nums)
+
+理解：
+我也不知道这算不算贪心
+按绝对值从大到小排序 遇到负的变正 k减一
+若所有的负的都是正的了 k还没减成一
+那就最小的那个值 反复正负变把k减完就行了 
+这道题要把一些语句记住 比如sorted(, key=abs, reverse=True) sum()   (-1)**k等
