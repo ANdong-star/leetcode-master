@@ -1,0 +1,24 @@
+题目：
+n 个孩子站成一排。给你一个整数数组 ratings 表示每个孩子的评分。
+
+你需要按照以下要求，给这些孩子分发糖果：
+
+每个孩子至少分配到 1 个糖果。
+相邻两个孩子评分更高的孩子会获得更多的糖果。
+请你给每个孩子分发糖果，计算并返回需要准备的 最少糖果数目 。
+
+代码：
+class Solution:
+    def candy(self, ratings: List[int]) -> int:
+        candylist = [1]*len(ratings)
+        for i in range(1, len(ratings)):
+            if ratings[i] > ratings[i - 1]:   #后面大于前面 不考虑小于
+                candylist[i] = candylist[i - 1] + 1
+        for i in range(len(ratings) - 2, -1, -1):
+            if ratings[i] > ratings[i + 1]:  #前面大于后面 
+                candylist[i] = max(candylist[i], candylist[i + 1] + 1) 
+        return sum(candylist)
+
+理解：
+从左往右贪心一遍 再从右向左贪心一边
+从右向左的时候遇到前面的比后面的评分高 不要直接赋值后面的糖果数加一 因为这个值不一定比前面的糖果数多
