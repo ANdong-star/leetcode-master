@@ -1,0 +1,18 @@
+题目：
+给定一个非负整数 N，找出小于或等于 N 的最大的整数，同时这个整数需要满足其各个位数上的数字是单调递增。
+
+（当且仅当每个相邻位数上的数字 x 和 y 满足 x <= y 时，我们称这个整数是单调递增的。）
+
+代码：
+class Solution:
+    def monotoneIncreasingDigits(self, n: int) -> int:
+        list_ = list(str(n)) #整数转字符串然后转列表 为了遍历
+        for i in range(len(list_)-1, 0, -1):
+            if list_[i] < list_[i-1]:
+                list_[i-1] = str(int(list_[i-1])-1)  #列表的元素都是字符串形式
+                list_[i:] = '9'*(len(list_)-i)        #后面所有的都置字符串形式的'9'
+        return int("".join(list_)) #转字符串再转整数
+
+理解：
+涉及整数 字符串 列表之间的转换 记住这些操作
+从后往前遍历 前面的如果比后面的大 则前面的数-1 后面所有的置9
