@@ -1,0 +1,20 @@
+题目：
+给你一个整数数组 cost ，其中 cost[i] 是从楼梯第 i 个台阶向上爬需要支付的费用。一旦你支付此费用，即可选择向上爬一个或者两个台阶。
+
+你可以选择从下标为 0 或下标为 1 的台阶开始爬楼梯。
+
+请你计算并返回达到楼梯顶部的最低花费。
+
+代码：
+class Solution:
+    def minCostClimbingStairs(self, cost: List[int]) -> int:
+        dp = [0]*len(cost)
+        dp[0] = cost[0]
+        dp[1] = cost[1]
+        for i in range(2, len(cost)):
+            dp[i] = min(dp[i-1], dp[i-2]) + cost[i]  #这里不好理解
+        return min(dp[-1], dp[-2])
+
+理解：
+有点难理解的是： dp[i] = min(dp[i-1], dp[i-2]) + cost[i] 对应 每当你爬上一个阶梯你都要花费对应的体力值，一旦支付了相应的体力值，你就可以选择向上爬一个阶梯或者爬两个阶梯。
+在这里最后一步或者两步不花体力值 前面都花体力值
