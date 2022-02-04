@@ -1,0 +1,30 @@
+题目：
+
+
+代码：
+class Solution:
+    def uniquePathsWithObstacles(self, obstacleGrid: List[List[int]]) -> int:
+        row = len(obstacleGrid)
+        col = len(obstacleGrid[0])
+        dp = [[0 for i in range(col)] for j in range(row)]
+        dp[0][0] = 1 if obstacleGrid[0][0] == 0 else 0
+        if dp[0][0] == 0: return 0
+        for i in range(1, row):
+            if obstacleGrid[i][0] == 1: 
+                break
+            dp[i][0] = 1
+        for j in range(1, col):
+            if obstacleGrid[0][j] == 1:
+                break
+            dp[0][j] = 1
+                # dp[0][j] = dp[0][j-1]
+        # print(dp)
+        for i in range(1, row):
+            for j in range(1, col):
+                if obstacleGrid[i][j] == 0:
+                    dp[i][j] = dp[i][j-1] + dp[i-1][j]
+        return dp[-1][-1]
+
+理解：
+对于有障碍物 有障碍物的位置dp肯定为0 无障碍物的位置可以与之前不同路径的原题一样
+在第一行和第一列赋初值的时候 我跟参考答案不一样的地方在于 遇到有障碍物的直接break 因为后面的都不能走到 都是0 没有遇到过障碍物的时候才是1
