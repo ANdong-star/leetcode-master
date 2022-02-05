@@ -1,0 +1,18 @@
+题目：
+给你一个 只包含正整数 的 非空 数组 nums 。请你判断是否可以将这个数组分割成两个子集，使得两个子集的元素和相等。
+
+代码：
+class Solution:
+    def canPartition(self, nums: List[int]) -> bool:
+        target = sum(nums)
+        if target % 2 == 1: return False
+        target //= 2
+        dp = [0]*10001 #代表所有元素和的一半加一 加一是为了动态规划的遍历
+        for i in range(len(nums)):
+            for j in range(target, nums[i] - 1, -1):
+                dp[j] = max(dp[j], dp[j-nums[i]]+nums[i])
+        return target == dp[target]
+
+理解：
+这道题不简单
+首先要理解01背包的问题和处理模板 之后要理解如何把二维dp转化为一维dp 之后理解如何把本题带入01背包问题 如何使各个变量一一对应 不好理解 需要多看多思考
