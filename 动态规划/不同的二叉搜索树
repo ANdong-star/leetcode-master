@@ -1,0 +1,16 @@
+题目：
+给定一个整数 n，求以 1 ... n 为节点组成的二叉搜索树有多少种？
+
+代码：
+class Solution:
+    def numTrees(self, n: int) -> int:
+        dp = [0] * (n+1) #0到n 所以是n+1的长度
+        dp[0] = 1  #专门把dp[0]赋值 为了相乘的时候不等于0
+        for i in range(1,n+1):
+            for j in range(1, i+1):
+                dp[i] += dp[j-1]*dp[i-j]  #递推公式通过画图可以得出来 每个元素都可以作为头结点 因为遍历得时候都要照顾到 
+        # print(dp)
+        return dp[n]
+        
+理解：
+递推公式和dp数组初始化要好好理解一下
