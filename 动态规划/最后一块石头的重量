@@ -14,9 +14,9 @@ class Solution:
         sumweight = sum(stones)
         target = sumweight // 2
         for i in range(len(stones)):
-            for j in range(target, stones[i]-1, -1):
+            for j in range(target, stones[i]-1, -1):   #从后向前遍历到stones[i]是保证此时背包的容量大于此行加入的石头的重量 否则dp[j-stones[i]]就会无意义 就要加if语句判断
                 dp[j] = max(dp[j], dp[j-stones[i]]+stones[i])
         return sumweight - 2*dp[target]
 
 理解：
-与
+看注释
