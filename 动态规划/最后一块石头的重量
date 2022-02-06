@@ -20,3 +20,5 @@ class Solution:
 
 理解：
 看注释
+此外要理解返回的结果 本意是(sumweight - dp[target]) - dp[target] 
+(sumweight - dp[target])一定比dp[target]的值更大
