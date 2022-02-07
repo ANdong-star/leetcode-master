@@ -1,0 +1,21 @@
+题目：
+给你一个二进制字符串数组 strs 和两个整数 m 和 n 。
+
+请你找出并返回 strs 的最大子集的长度，该子集中 最多 有 m 个 0 和 n 个 1 。
+
+如果 x 的所有元素也是 y 的元素，集合 x 是集合 y 的 子集 。
+
+代码：
+class Solution:
+    def findMaxForm(self, strs: List[str], m: int, n: int) -> int:
+        dp = [[0 for _ in range(n+1)] for _ in range(m+1)]  #初始化都为0
+        for str_ in strs:
+            zero_num = str_.count('0')
+            one_nums = str_.count('1')
+            for i in range(m, zero_num-1, -1): #遍历到的地方为zero_num就是防止后面递推公式有问题
+                for j in range(n, one_nums-1, -1):
+                    dp[i][j] = max(dp[i][j], dp[i-zero_num][j-one_nums] + 1)  #去掉本字符串之后的最大 然后再加本字符串之后的大小 本字符串的大小就是1
+        return dp[m][n]
+
+理解：
+代入到01背包问题中 背包的容量是二维的 其他递推公式和初始化也有些不一样
