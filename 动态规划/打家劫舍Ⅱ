@@ -1,0 +1,30 @@
+题目：
+你是一个专业的小偷，计划偷窃沿街的房屋，每间房内都藏有一定的现金。这个地方所有的房屋都 围成一圈 ，这意味着第一个房屋和最后一个房屋是紧挨着的。同时，相邻的房屋装有相互连通的防盗系统，如果两间相邻的房屋在同一晚上被小偷闯入，系统会自动报警 。
+
+给定一个代表每个房屋存放金额的非负整数数组，计算你 在不触动警报装置的情况下 ，今晚能够偷窃到的最高金额。
+
+代码：
+class Solution:
+    def rob(self, nums: List[int]) -> int:
+        n = len(nums)
+        if n==1:
+            return nums[0]
+        if n == 0:  #不加这行竟然会不行？不是不会出现n==0的情况么
+            return 0
+        result1 = self.rob_range(nums, 0, n-2)
+        result2  =self.rob_range(nums, 1, n-1)
+        return max(result1, result2)
+    
+    def rob_range(self, nums, start, end):
+        if start == end:
+            return nums[start]
+        dp = [0] * len(nums)
+        dp[start] = nums[start]  #start不一样的话 起始坐标在数组中的位置也会不一样
+        dp[start+1] = max(nums[start], nums[start+1]) #别忘了dp[i]表示的是i及之前..的最大值
+        for i in range(start+2, end+1):
+            dp[i] = max(dp[i-1], dp[i-2] + nums[i])
+        return dp[end]  #因为初始数组定义了全部的长度 最后取我们用的那一块 所以要返回dp[end] 而不是dp[-1]
+
+理解：
+环的话 就分解 去掉最后 或者去掉第一 然后取最大的 
+代码去掉n==0的情况竟然会报错 还没弄明白为啥
