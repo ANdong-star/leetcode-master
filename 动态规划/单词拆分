@@ -1,0 +1,18 @@
+题目：
+给你一个字符串 s 和一个字符串列表 wordDict 作为字典。请你判断是否可以利用字典中出现的单词拼接出 s 。
+
+注意：不要求字典中出现的单词全部都使用，并且字典中的单词可以重复使用。
+
+代码：
+class Solution:
+    def wordBreak(self, s: str, wordDict: List[str]) -> bool:
+        dp = [False] * (len(s)+1)
+        dp[0] = True
+        for j in range(1, len(s)+1): #从背包开始外循环
+            for word in wordDict:
+                if j >= len(word):  #大于等于的时候 等于的时候也可以拼成
+                    dp[j] = dp[j] or dp[j-len(word)] and word == s[j-len(word):j]  #切片操作 这么切对了 能保留len(word)长度的字符串
+        return dp[-1]
+
+理解：
+dp[j]的定义是True or False 递推公式也不一样 需要理解并记住
