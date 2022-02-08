@@ -6,13 +6,15 @@
 代码：
 class Solution:
     def rob(self, nums: List[int]) -> int:
+        if len(nums) == 1:
+            return nums[0]
         dp = [0] * len(nums)  #定义长度是输入数组的长度
         dp[0] = nums[0]
         dp[1] = max(nums[0], nums[1])
         
         for i in range(2, len(nums)):  #遍历的终点也是数组的最后一个元素
             dp[i] = max(dp[i-1], dp[i-2] + nums[i])
-        return dp[-1] 
+        return dp[-1]
 
 理解：
 dp五部曲 理解了就可以 定义的dp数组长度跟其他题目略有不同  这是因为本题的nums数组长度就是dp数组的长度了  其他的题目给的是个值 不包括0 所以长度要加一
