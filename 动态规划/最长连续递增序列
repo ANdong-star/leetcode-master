@@ -17,6 +17,17 @@ class Solution:
                 tmp = 1           
         return result     
 
+#动态规划
+class Solution:
+    def findLengthOfLCIS(self, nums: List[int]) -> int:
+        dp = [1] * len(nums)
+        result = 1
+        for i in range(len(nums)-1):
+            if nums[i] < nums[i+1]:
+                dp[i] = dp[i-1] + 1
+                result = max(result, dp[i])
+        return result
+
 理解：
 1. 贪心 判断递增nums[i] < nums[i+1]就行了 不用设置什么start啥的
-2. dp
+2. dp 递推公式比较简单 满足条件就可以加一 
