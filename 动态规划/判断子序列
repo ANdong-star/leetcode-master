@@ -11,6 +11,7 @@
 特别感谢 @pbrother 添加此问题并且创建所有测试用例。
 
 代码：
+#动态规划法
 class Solution:
     def isSubsequence(self, s: str, t: str) -> bool:
         dp = [[0 for _ in range(len(t)+1)] for _ in range(len(s)+1)]
@@ -23,6 +24,20 @@ class Solution:
         if dp[-1][-1] == len(s): 
             return True
         return False
-
+#双指针法
+class Solution:
+    def isSubsequence(self, s: str, t: str) -> bool:
+        if len(s) == 0:
+            return True
+        i = 0
+        for j in range(len(t)):
+            if s[i] == t[j]:
+                i += 1
+                if i == len(s):
+                    break
+        if i == len(s):
+            return True
+        return False
+        
 理解：
 递推公式搞清楚 有两种情况 
