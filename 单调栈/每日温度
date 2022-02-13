@@ -1,1 +1,20 @@
+题目：
+给定一个整数数组 temperatures ，表示每天的温度，返回一个数组 answer ，其中 answer[i] 是指在第 i 天之后，才会有更高的温度。如果气温在这之后都不会升高，请在该位置用 0 来代替。
 
+代码：
+class Solution:
+    def dailyTemperatures(self, temperatures: List[int]) -> List[int]:
+        answer = [0] * len(temperatures)
+        stack = [0]  #入栈第一个元素是0 是下标0 而不是temperatures[0]第一个温度！
+        for i in range(1, len(temperatures)):
+            if temperatures[i] <= temperatures[stack[-1]]:
+                stack.append(i)
+            else:
+                while len(stack) != 0 and temperatures[i] > temperatures[stack[-1]]:
+                    answer[stack[-1]] = i - stack[-1]
+                    stack.pop()
+                stack.append(i)
+        return answer
+
+理解：
+单调栈的第一题 通过入栈出栈下标来得到第一个大于它的下标 然后得到answer 一共有三个数组 每个数组的含义要理解清楚
