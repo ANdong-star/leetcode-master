@@ -12,7 +12,7 @@ class Solution:
     def nextGreaterElement(self, nums1: List[int], nums2: List[int]) -> List[int]:
         result = [-1] * len(nums1)
         stack = [0]  #栈底初始就是nums2的第一个下标
-        for i in range(len(nums2)):
+        for i in range(1, len(nums2)):
             if nums2[i] <= nums2[stack[-1]]:
                 stack.append(i)
             else:
