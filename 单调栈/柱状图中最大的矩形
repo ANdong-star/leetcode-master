@@ -1,0 +1,38 @@
+题目：
+给定 n 个非负整数，用来表示柱状图中各个柱子的高度。每个柱子彼此相邻，且宽度为 1 。
+
+求在该柱状图中，能够勾勒出来的矩形的最大面积。
+
+代码：
+#思路一 动态规划
+class Solution:
+    def largestRectangleArea(self, heights: List[int]) -> int:
+        #解题思路： 对于每个柱子 求利用这个柱子的高度 来尽量获取最大的长度来进而获得最大的面积
+        #因此 每个柱子都求得左边和右边第一个比这个柱子高度低的下标  两个下标之间的距离减一作为矩形的宽度 也就是所有所有比这个柱子高的 等于的 包括这个柱子的长度算进去作为宽
+        #之后每个柱子的高作为高来求面积 选最大面积
+        length = len(heights)
+        min_left_height = [0] * length
+        min_right_height = [0] * length
+        min_left_height[0] = -1
+        min_right_height[-1] = length
+        #利用dp获取两个数组
+        for i in range(1, length):
+            tmp = i-1
+            while tmp >= 0 and heights[tmp] >= heights[i]:
+                tmp = min_left_height[tmp]
+            min_left_height[i] = tmp
+        for i in range(length-2, -1, -1):
+            tmp = i + 1
+            while tmp <= length -1 and heights[tmp] >= heights[i]:
+                tmp = min_right_height[tmp]
+            min_right_height[i] = tmp
+
+        #正式开始求面积 
+        result = 0  
+        for i in range(length):
+            area = heights[i] * (min_right_height[i] - min_left_height[i] - 1) #高的之间的距离
+            result = max(area, result) #每次更新一下result
+        return result
+
+理解：
+动态规划的思路注释里都写了
