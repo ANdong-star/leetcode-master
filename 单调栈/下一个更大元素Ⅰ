@@ -1,0 +1,28 @@
+题目：
+nums1 中数字 x 的 下一个更大元素 是指 x 在 nums2 中对应位置 右侧 的 第一个 比 x 大的元素。
+
+给你两个 没有重复元素 的数组 nums1 和 nums2 ，下标从 0 开始计数，其中nums1 是 nums2 的子集。
+
+对于每个 0 <= i < nums1.length ，找出满足 nums1[i] == nums2[j] 的下标 j ，并且在 nums2 确定 nums2[j] 的 下一个更大元素 。如果不存在下一个更大元素，那么本次查询的答案是 -1 。
+
+返回一个长度为 nums1.length 的数组 ans 作为答案，满足 ans[i] 是如上所述的 下一个更大元素 
+
+代码：
+class Solution:
+    def nextGreaterElement(self, nums1: List[int], nums2: List[int]) -> List[int]:
+        result = [-1] * len(nums1)
+        stack = [0]  #栈底初始就是nums2的第一个下标
+        for i in range(len(nums2)):
+            if nums2[i] <= nums2[stack[-1]]:
+                stack.append(i)
+            else:
+                while len(stack) != 0 and nums2[i] > nums2[stack[-1]]:
+                    if nums2[stack[-1]] in nums1:  #遇到更大的了 放得的是比stack[-1]更大得数 而stack[-1]必须在nums1中
+                        index = nums1.index(nums2[stack[-1]])
+                        result[index] = nums2[i]
+                    stack.pop()  #记录下来或者不需要记录 都需要弹出 
+                stack.append(i) #所有的都弹出后 把当前大的放进去 
+        return result
+
+理解：
+跟每日温度不一样 更大元素每次都要判断在不在nums1里 然后就各种变换
