@@ -1,0 +1,45 @@
+题目：
+给定 s 和 t 两个字符串，当它们分别被输入到空白的文本编辑器后，如果两者相等，返回 true 。# 代表退格字符。
+
+注意：如果对空文本输入退格字符，文本继续为空。
+
+代码：
+class Solution:
+    def backspaceCompare(self, s: str, t: str) -> bool:
+        #整体逻辑上比较繁琐
+        s_index, t_index = len(s)-1, len(t) - 1
+        s_tmp, t_tmp = 0, 0
+        while s_index >=0 or t_index >= 0:  #要用or 出了范围也要放进来 没问题再true
+            #两个数组都要进行处理 从后往前遍历 删除完之后在开始比较
+            while s_index >= 0:
+                if s[s_index] == '#':
+                    s_tmp += 1
+                    s_index -= 1
+                elif s_tmp > 0:
+                    s_tmp -= 1
+                    s_index -= 1
+                else:
+                    break
+            while t_index >= 0:
+                if t[t_index] == '#':
+                    t_tmp += 1
+                    t_index -= 1
+                elif t_tmp > 0:
+                    t_tmp -= 1
+                    t_index -= 1
+                else:
+                    break
+            #比较的前提是两个数组都没删完
+            if s_index >= 0 and t_index >= 0:
+                if s[s_index] != t[t_index]:
+                    return False
+            elif s_index >= 0 or t_index >= 0:  #一个出了范围 一个还在范围内 那肯定就是不对了
+                return False
+            #下面的就是下边还没遍历完 但是能对的上的 还要继续循环
+            s_index -= 1
+            t_index -= 1
+        return True
+
+理解：
+一个是从后往前遍历 每次去除'#'的影响后都要比较 
+另一个是超出范围后不要急着判断对错 都要再分析一下
