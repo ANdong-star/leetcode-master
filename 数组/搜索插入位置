@@ -1,0 +1,22 @@
+题目：
+给定一个排序数组和一个目标值，在数组中找到目标值，并返回其索引。如果目标值不存在于数组中，返回它将会被按顺序插入的位置。
+
+请必须使用时间复杂度为 O(log n) 的算法。
+
+代码：
+class Solution:
+    def searchInsert(self, nums: List[int], target: int) -> int:
+        # 有序数组 无重复元素 二分法 先把二分法写了然后再看需要什么改变
+        left, right = 0, len(nums) - 1
+        while left <= right:
+            middle = (right + left) // 2
+            if nums[middle] > target:  #假设在左闭右闭的区间  跟这个判断条件无关 跟后面更新边界有关
+                right = middle - 1  
+            elif nums[middle] < target:
+                left = middle + 1
+            else:
+                return middle
+        return right + 1
+        
+理解：
+传统的二分法找不到的时候不是返回-1了 而是返回right+1
