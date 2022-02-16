@@ -1,0 +1,27 @@
+题目：
+给你一个非负整数 x ，计算并返回 x 的 算术平方根 。
+
+由于返回类型是整数，结果只保留 整数部分 ，小数部分将被 舍去 。
+
+注意：不允许使用任何内置指数函数和算符，例如 pow(x, 0.5) 或者 x ** 0.5 。
+
+代码：
+class Solution:
+    def mySqrt(self, x: int) -> int:
+        #通过二分法的形式来找到这个值
+        #因为要返回整数 在之前的通过二分法来找一个数插入的位置 可以引申出通过返回right来求得这个整数
+        if x == 0:
+            return 0
+        left, right = 0, x
+        while left <= right:
+            middle = (left + right) // 2
+            if middle**2 > x:
+                right = middle - 1
+            elif middle**2 < x:
+                left = middle + 1
+            else:
+                return middle
+        return right 
+
+理解：
+一个是想到二分法 一个是取整数 那就联系搜索插入位置那道题 把right+1 变为right
