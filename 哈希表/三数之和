@@ -17,9 +17,9 @@ class Solution:
         nums.sort()
         for i in range(len(nums)):
             
-            if nums[i] > 0:
+            if nums[i] > 0:   #剪枝操作 若最小的都大于0了 就不用继续看了
                 break 
-            elif i > 0 and nums[i] == nums[i-1]:
+            elif i > 0 and nums[i] == nums[i-1]:  #同一个位置的元素不能重复  不同位置的元素可以重复 换句话说 不能出现完全一样的两个答案
                 continue
             left = i + 1
             right = len(nums) - 1
