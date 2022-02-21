@@ -8,9 +8,9 @@
 class Solution:
     def replaceSpace(self, s: str) -> str:
 
-        blank = s.count(' ')  #计算有多少个空格
+        blank = s.count(' ')  #计算有多少个空格 字符串数据类型的库函数 统计某种字符的数量 记住
         res = list(s)
-        res.extend([' ']*blank*2)  #扩充list长度
+        res.extend([' ']*blank*2)  #扩充list长度  extend 扩充列表 记住
         left, right = len(s)-1, len(res)-1
 
         while left >= 0:
