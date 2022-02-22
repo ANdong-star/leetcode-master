@@ -56,9 +56,9 @@ class Solution:
                 stack.append(items)
             else:
                 nums_1, nums_2 = stack.pop(), stack.pop()
-                stack.append(int(eval(f'{nums_2}{items}{nums_1}')))
+                stack.append(int(eval(f'{nums_2}{items}{nums_1}')))  #计算
 
-        return int(stack.pop())  #进来的全是字符串形式 需要转成整数 若进来只有一个数字 则不进入eval运算分支 无法转整数  因此最后再统一转一遍
+        return int(stack.pop())  #进来的全是字符串形式 需要转成int型数据 若进来只有一个数字 则不进入eval运算分支 无法转int型数据  因此最后再统一转一遍
 
 理解：
 逆波兰表达式符合计算机的计算逻辑  
