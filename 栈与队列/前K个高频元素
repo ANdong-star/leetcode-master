@@ -28,8 +28,8 @@ class Solution:
         
         heap = []
 
-        for key, fre in map.items():
-            heapq.heappush(heap, (fre, key))
+        for key, fre in map.items():  
+            heapq.heappush(heap, (fre, key))  
 
             if len(heap) > k:
                 heapq.heappop(heap)
