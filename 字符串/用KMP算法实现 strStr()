@@ -32,8 +32,8 @@ class Solution:
         getnext(self, next, needle)
         n = 0
 
-        for h in range(len(haystack)):
-            while  n > 0 and haystack[h] != needle[n]:
+        for h in range(len(haystack)):  
+            while  n > 0 and haystack[h] != needle[n]:  #要用while 一直回退直到符合条件  
                 n = next[n-1]
 
             if haystack[h] == needle[n]:
