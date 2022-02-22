@@ -49,7 +49,41 @@ push 肯定会压入 但是前面只要比压入的小 全部弹出队列  #这�
 pop 看是不是最大值 是最大值才会弹出  因为前面的元素是顺序进来的 所以只要队列最左边元素不是最大值 那队列里就不会存在要pop的元素 因为之前push的时候都被弹出了
 front 返回最左边元素就行了
 
+#二刷 
+class MyQueue:
+    def __init__(self):
+        self.stack = []
+    def push(self, vaule):
+        while self.stack and self.stack[-1] < vaule:
+            self.stack.pop()
+        self.stack.append(vaule)
+    def pop(self, vaule):
+        if self.stack and vaule == self.stack[0]:
+            self.stack.pop(0)
+    def front(self):
+        if self.stack:
+            return self.stack[0]
 
-
+class Solution:
+    def maxSlidingWindow(self, nums: List[int], k: int) -> List[int]:
+        que = MyQueue()
+        result = []
+        #第一个窗口 一个一个的放入
+        for i in range(k):
+            que.push(nums[i])
+        result.append(que.front())
+        for i in range(k, len(nums)):
+            que.pop(nums[i-k])
+            que.push(nums[i])
+            result.append(que.front())
+        return result
+        
+        
+二刷理解：
+每次滑动窗口移动的时候 进入的元素 直接进去把小的元素全挤出去 这是因为这些元素都比新进去的元素小 因此以后选最大元素不可能用到了 （这是本题的核心思想）
+因此 每次都可以从最前面直接得到滑动窗口内的最大元素
+此外 除了进入的元素 还得有元素出去 比较小的元素肯定早被踢走了 但是有些很大的元素 可能一直占据最大元素的位置 必须要更新掉
+当滑动窗口的左边对应的数组的元素还在 如果在的话那肯定在最左边 （不在最左边 也就是有其他元素比他大， 那他肯定早被踢走了）  此时就更新掉
+建立一个单调栈好封装 方便快捷
 
 
