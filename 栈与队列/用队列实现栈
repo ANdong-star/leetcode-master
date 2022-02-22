@@ -28,7 +28,7 @@ class MyStack:
         if not self.empty():
             for i in range(len(self.queue_in)-1):
                 self.queue_out.append(self.queue_in.popleft())
-            self.queue_in, self.queue_out = self.queue_out, self.queue_in
+            self.queue_in, self.queue_out = self.queue_out, self.queue_in   #直接名称互换就完了 就是交换了
 
             return self.queue_out.popleft()
 
