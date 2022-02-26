@@ -95,4 +95,27 @@ class Solution:
             # if condidate_val != None and condidate_val >= node.val: return False
             # condidate_val = node.val
  
+ #二刷
+ # Definition for a binary tree node.
+# class TreeNode:
+#     def __init__(self, val=0, left=None, right=None):
+#         self.val = val
+#         self.left = left
+#         self.right = right
+class Solution:
+    def isValidBST(self, root: TreeNode) -> bool:
+        condidate_val = -float("INF")   #定义float类型的极小值
+        def is_validbst(self, node):
+            nonlocal condidate_val    #这里要注意 声明condidate_val 是非局部
+            if not node:
+                return True
+            is_valid_lefttree = is_validbst(self, node.left)
+            if condidate_val < node.val:   #左边的已经遍历完了 condidate_val 代表了目前遍历到的左边的最大的值
+                condidate_val = node.val
+            else:
+                return False
+            is_valid_righttree = is_validbst(self, node.right)
+            return is_valid_lefttree and is_valid_righttree
+
+        return is_validbst(self, root)
 
