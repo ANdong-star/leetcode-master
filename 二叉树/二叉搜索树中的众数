@@ -34,15 +34,15 @@ class Solution:
         self.findMode(node.left)
         if not self.pre:
             self.count = 1
-        elif self.pre.val == node.val:
+        elif self.pre.val == node.val:  
             self.count += 1
         else:
             self.count = 1
         self.pre = node
         if self.count == self.max_count:
-            self.results.append(node.val)
+            self.results.append(node.val)   
 
-        if self.count > self.max_count:
+        if self.count > self.max_count:  #每次遍历都会更新 所以其实一样的数字 随着count在增加 结果集也在更新
             self.results = [node.val]
             self.max_count = self.count
         
