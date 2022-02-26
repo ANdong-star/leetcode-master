@@ -19,7 +19,7 @@ class Solution:
 
         self.count = 0
         self.max_count = 0
-        self.pre = TreeNode()
+        self.pre = TreeNode()   #其实这里初始化为None也行
         self.results = []
 
     def findMode(self, root: TreeNode) -> List[int]:
