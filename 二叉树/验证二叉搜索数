@@ -46,7 +46,7 @@ class Solution:
         condidate_val = -float("INF")
         # condidate_val = None
         def is_validbst(self, node):
-            nonlocal condidate_val
+            nonlocal condidate_val    #这里要注意 声明condidate_val 是非局部
             if not node:
                 return True
             is_valid_lefttree = is_validbst(self, node.left)
