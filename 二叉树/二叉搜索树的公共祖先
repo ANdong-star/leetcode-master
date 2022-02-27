@@ -17,7 +17,7 @@ class Solution:
             return self.lowestCommonAncestor(root.left, q, p)
         if root.val < q.val and root.val < p.val:
             return self.lowestCommonAncestor(root.right, q, p)
-        return root
+        return root              #别忘了是后序遍历 二刷的时候前序遍历没通过！
 
 理解：
 二叉搜索树的特征让公共祖先的题变得简单很多 其实只要符合.val在两个节点的val之间就是最近公共祖先 
