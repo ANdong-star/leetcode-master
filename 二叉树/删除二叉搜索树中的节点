@@ -96,3 +96,6 @@ class Solution:
         if root.val < key: root.right = self.deleteNode(root.right, key)
         return root
                 
+二刷：
+分五种情况
+                
