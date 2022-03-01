@@ -1,0 +1,28 @@
+题目：
+
+
+代码：
+class Solution:
+    def totalFruit(self, fruits: List[int]) -> int:
+        left = 0
+        kep = set()
+        kep.add(fruits[0])
+        count = 1
+        for right in range(1, len(fruits)):
+            #先放进去
+            kep.add(fruits[right])
+            if len(kep) <= 2:
+                count = max(count, right-left+1)
+            else:
+                #kep清理
+                while len(kep) > 2:
+                    left += 1
+                    fruit = fruits[left:right+1]
+                    kep = set(fruit)
+        return count
+
+理解：
+一个是每次right移动的时候都要放进篮 不爆万事大吉 爆了前进left直到符合条件
+一个是遇到爆了的时候while到符合条件 利用set(list)的思想做
+
+总结 刚开始要想好整体的代码核心逻辑 不是确定了双指针就直接做了 而是想好具体怎么移动 比如本题 right必放 一步一步移动 爆了的时候再移动left
