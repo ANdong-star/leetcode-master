@@ -12,16 +12,16 @@ class Solution:
         ticket_list = defaultdict(list)
         #建立映射字典
         for ticket in tickets:
-            ticket_list[ticket[0]].append(ticket[1])
+            ticket_list[ticket[0]].append(ticket[1])      #把出发机场和到达机场对应起来 一个起始机场可以对应好几个到达机场 
         results = ['JFK']
 
         def backtracking(Start_city):
             if len(results) == len(tickets) + 1:
                 return True
-            ticket_list[Start_city].sort()
-            for _ in ticket_list[Start_city]:
+            ticket_list[Start_city].sort()          #起始机场对应的到达机场需要排序 这样先遍历字典排序小的
+            for _ in ticket_list[Start_city]:    #回溯的广度就是每个起始机场对应的到达机场 
                 # print(_)
-                arrive_city = ticket_list[Start_city].pop(0)
+                arrive_city = ticket_list[Start_city].pop(0)   #pop出去了就是暂时删掉了 防止之后还用到
                 # print(arrive_city)
                 results.append(arrive_city)
                 if backtracking(arrive_city):
@@ -36,5 +36,4 @@ class Solution:
 先用字典建立地点的映射表 
 之后从JFK开始找终点 也是之后的起点 每次需要将终点进行排序 从小的开始 如果小的不成功才轮到大的
 返回值只需要bool就可以 找到一条符合条件的就可以结束程序 因此找到的都是复合条件的小的
-回溯递归的时候 用的是pop(0)值 而不是for循环的值 还不完全理解
 防止陷入死循环的措施是随时删掉用过的地点
