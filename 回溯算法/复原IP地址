@@ -28,10 +28,10 @@ class Solution:
             else:
                 return 
     
-    def is_valid(self, s, start, end):
-        if start > end:
-            return False
-        if s[start] == '0' and start != end:
+    def is_valid(self, s, start, end):    
+        if start > end:   #这种情况会出现么？
+            return False  
+        if s[start] == '0' and start != end:  
             return False
         if not 0 <= int(s[start:end+1]) <= 255:
             return False
