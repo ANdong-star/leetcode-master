@@ -21,7 +21,7 @@ class Solution:
             self.results.append(self.path[:])
         if Start_Index == len(nums):
             return 
-        usage_list = set()
+        usage_list = set()           #每次回溯的时候都会重新定义一个set() 因此只会对同一层起作用 牛！
 
         for i in range(Start_Index, len(nums)):
             if (self.path and nums[i] < self.path[-1]) or nums[i] in usage_list:
