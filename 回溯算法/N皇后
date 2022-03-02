@@ -35,10 +35,10 @@ class Solution:
         def backtracking(board, row, col):
             if row == n:   #到了最后一行 就到头了 可以存了
                 res_tmp = []
-                for i in board:     
-                    res_ = ''.join(i)
-                    res_tmp.append(res_)
-                results.append(res_tmp)
+                for i in board:  #输出的结果要求 每个棋盘结果 每一行是字符串 多行对应多个数组元素 每个数组元素都是字符串
+                    res_ = ''.join(i)  #每一行的数组转字符串
+                    res_tmp.append(res_) #转完字符串作为数组元素存入 
+                results.append(res_tmp)  #四个数组元素作为四行存入总的结果集
             for col in range(n):
                 if is_valid(board, row, col):
                     board[row][col] = 'Q'
