@@ -29,7 +29,7 @@ class Solution:
                 return 
     
     def is_valid(self, s, start, end):    
-        if start > end:   #这种情况会出现么？
+        if start > end:   #这种情况就是 要加入结果集的时候 判定合法的时候 有可能出现这种情况
             return False  
         if s[start] == '0' and start != end:  #判断是否是第一个
             return False
