@@ -1,0 +1,45 @@
+题目：
+给你两个 非空 的链表，表示两个非负的整数。它们每位数字都是按照 逆序 的方式存储的，并且每个节点只能存储 一位 数字。
+
+请你将两个数相加，并以相同形式返回一个表示和的链表。
+
+你可以假设除了数字 0 之外，这两个数都不会以 0 开头。
+
+代码：
+# Definition for singly-linked list.
+# class ListNode:
+#     def __init__(self, val=0, next=None):
+#         self.val = val
+#         self.next = next
+class Solution:
+    def addTwoNumbers(self, l1: ListNode, l2: ListNode) -> ListNode:
+        #按照正常模拟两个数相加的顺序 就可以实现这道题
+        carry = 0  #进位
+        head, tail = None, None
+        while l1 or l2: #只要两个链表任一一个没有遍历完 都不算结束 如果两个链表长度不一样 短的遍历到头了之后之后的val值可以用0代替
+            if l1: 
+                n1 = l1.val
+            else:
+                n1 = 0
+            if l2:
+                n2 = l2.val
+            else:
+                n2 = 0
+            sum = n1 + n2 + carry  #不要忘了每次记得加上进位的数字
+            if not head:  #刚开始的时候head 和 tail都没有赋值  其实就用一次 之后就不用了
+                head = tail = ListNode(val = sum % 10)
+            else:
+                tail.next = ListNode(sum % 10)
+                tail = tail.next    #开始后移了
+            carry = int(sum / 10)
+            if l1:
+                l1 = l1.next  #如果链表已经到头了 就一直在None不动了
+            if l2:
+                l2 = l2.next
+        if carry > 0:  #不要忘了最后的这个进位
+            tail.next = ListNode(carry)
+        return head
+
+理解：
+按照正常的两数相加的运算顺序进行模拟就行了
+             
