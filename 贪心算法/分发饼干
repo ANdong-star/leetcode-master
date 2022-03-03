@@ -10,7 +10,7 @@ class Solution:
         s.sort()
         res = 0
         for i in range(len(s)):
-            if res < len(g) and s[i] >= g[res]:
+            if res < len(g) and s[i] >= g[res]:  #res 既是现在能喂饱的孩子总数 也是喂饱的第几个孩子
                 res += 1
         return res
 
