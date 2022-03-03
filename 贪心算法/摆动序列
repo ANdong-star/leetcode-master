@@ -13,8 +13,8 @@ class Solution:
     def wiggleMaxLength(self, nums: List[int]) -> int:
         pre, cur, res = 0, 0, 1
         for i in range(1, len(nums)):
-            cur = nums[i] - nums[i - 1]
-            if cur * pre <= 0 and cur != 0:
+            cur = nums[i] - nums[i - 1]     
+            if cur * pre <= 0 and cur != 0:    #知道贪心的原理 其实实现起来也是有难度的 如果想到用pre 和 cur两个缓存值来判断是一直上升下降还是一上一下
                 res += 1
                 pre = cur
         return res 
