@@ -1,0 +1,40 @@
+题目：
+将两个升序链表合并为一个新的 升序 链表并返回。新链表是通过拼接给定的两个链表的所有节点组成的。
+
+代码：
+# Definition for singly-linked list.
+# class ListNode:
+#     def __init__(self, val=0, next=None):
+#         self.val = val
+#         self.next = next
+class Solution:
+    def mergeTwoLists(self, list1: Optional[ListNode], list2: Optional[ListNode]) -> Optional[ListNode]:
+        dummy_head = ListNode()
+        tmp_head = dummy_head    
+        n1 = list1
+        n2 = list2
+        while n1 or n2:
+            if not n1:
+                tmp_head.next = ListNode(n2.val)
+                tmp_head = tmp_head.next
+                n2 = n2.next
+            else:
+                if not n2:
+                    tmp_head.next = ListNode(n1.val)
+                    tmp_head = tmp_head.next
+                    n1 = n1.next
+                else:
+                    if n1.val < n2.val:
+                        tmp_head.next = ListNode(n1.val)
+                        tmp_head = tmp_head.next
+                        n1 = n1.next
+                    else:
+                        tmp_head.next = ListNode(n2.val)
+                        tmp_head = tmp_head.next
+                        n2 = n2.next
+        return dummy_head.next
+
+理解：
+其实也是双指针的思想 遍历一遍就行了 
+就是判断语句有点多
+
