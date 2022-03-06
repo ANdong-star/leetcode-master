@@ -18,3 +18,14 @@ class Solution:
 对于每个数值 都需要遍历求解 
 第一个循环好理解
 第二个循环 不好理解
+
+二刷：
+改了第二个循环  感觉更好理解了 把dp[1]加入运算
+class Solution:
+    def integerBreak(self, n: int) -> int:
+        dp = [1] * (n+1) #dp[0]也要算
+        for i in range(n+1):
+            for j in range(1, i):
+                dp[i] = max(dp[i], max(j*(i-j), j * dp[i-j]))
+        return dp[n]
+        
