@@ -23,9 +23,9 @@
 class Solution:
     def coinChange(self, coins: List[int], amount: int) -> int:
         # 硬币数量无限 所以是 完全背包问题 所以从小到大遍历
-        dp = [amount +1 ] * (amount + 1) 
+        dp = [amount +1 ] * (amount + 1)    #amount + 1这个数是最多的硬币个数也不会 
         dp[0] = 0 #初始化 
-        for i in range(len(coins)):
+        for i in range(len(coins)):   #是组合问题 先遍历物品 再遍历背包
             for j in range(coins[i], amount + 1):
                 dp[j] = min(dp[j], dp[j - coins[i]] + 1)
         return dp[amount] if dp[amount] < amount + 1 else -1 #dp[amount]初始化为amount + 1 若有效的话会被赋值
