@@ -9,7 +9,7 @@ class Solution:
         n = len(nums)
         if n==1:
             return nums[0]
-        if n == 0:  #不加这行竟然会不行？不是不会出现n==0的情况么
+        if n == 0:  #可以不加
             return 0
         result1 = self.rob_range(nums, 0, n-2)
         result2  =self.rob_range(nums, 1, n-1)
