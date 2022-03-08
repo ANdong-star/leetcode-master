@@ -27,4 +27,23 @@ class Solution:
 
 理解：
 环的话 就分解 去掉最后 或者去掉第一 然后取最大的 
-代码去掉n==0的情况竟然会报错 还没弄明白为啥
+
+二刷：
+class Solution:
+    def rob(self, nums: List[int]) -> int:
+        length_nums = len(nums)
+        if length_nums == 1:
+            return nums[0]
+        result1 = self.rob_dp(nums, 0, length_nums - 2)
+        result2 = self.rob_dp(nums, 1, length_nums - 1)
+        return max(result1, result2)
+
+    def rob_dp(self, nums, start, end):
+        if start == end:
+            return nums[start]
+        dp = [0] * len(nums)
+        dp[start] = nums[start]
+        dp[start + 1] = max(dp[start], nums[start + 1])
+        for i in range(start + 2, end + 1):
+            dp[i] = max(dp[i-1], dp[i-2] + nums[i])
+        return dp[end]
