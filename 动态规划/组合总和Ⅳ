@@ -32,11 +32,11 @@ nums 中的所有元素 互不相同
 代码：
 class Solution:
     def combinationSum4(self, nums: List[int], target: int) -> int:
-        dp = [0] * (target + 1)
+        dp = [0] * (target + 1)   #这道题没有选择的时候就输出0 所以不用初始化很高了
         dp[0] = 1
         for j in range(1, target + 1):    #排列问题 所以先遍历背包容量 且是完全背包问题 所以从小到大遍历  dp[0]已经定了 所以从1开始遍历就可以了
             for i in range(len(nums)):
-                if j >= nums[i]:
+                if j >= nums[i]:               #因为是先遍历背包 所以不能从nums[i]开始遍历 因为此时还没提到物品 因为只能从1开始 在遍历物品的时候用if语句来从nums[i]开始遍历
                     dp[j] += dp[j - nums[i]] 
         return dp[target]
 
