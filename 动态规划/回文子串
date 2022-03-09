@@ -13,8 +13,8 @@ class Solution:
     def countSubstrings(self, s: str) -> int:
         dp = [[False for _ in range(len(s))] for _ in range(len(s))]
         result = 0
-        for i in range(len(s)-1, -1, -1):
-            for j in range(i, len(s)):
+        for i in range(len(s)-1, -1, -1):  #因为要根据 i+1推i 所以要从大到小
+            for j in range(i, len(s)):    #因为是i和j之间的字符串是不是回文串 所以从i开始遍历
                 if s[j] == s[i]:
                     if j - i <= 1:
                         dp[i][j] = True
