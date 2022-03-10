@@ -19,7 +19,7 @@ class Solution:
         for i in range(1, length):
             tmp = i-1
             while tmp >= 0 and heights[tmp] >= heights[i]:
-                tmp = min_left_height[tmp]
+                tmp = min_left_height[tmp]   #有点递归的感觉 如果左边的大 找比左边小的第一个 不一定符合条件 但比一个一个找更有效率一些 
             min_left_height[i] = tmp
         for i in range(length-2, -1, -1):
             tmp = i + 1
