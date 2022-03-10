@@ -26,3 +26,23 @@ class Solution:
 
 理解：
 跟每日温度不一样 更大元素每次都要判断在不在nums1里 然后就各种变换
+
+
+二刷：
+class Solution:
+    def nextGreaterElement(self, nums1: List[int], nums2: List[int]) -> List[int]:
+        #首先定义结果集 结果集大小肯定是跟nums1一致
+        result = [-1] * len(nums1)
+        #之后定义单调栈 单调栈在nums2上处理 第一个元素就是nums2的第一个元素下标 那肯定就是0
+        stack = [0]
+        for i in range(1, len(nums2)):
+            if nums2[i] <= nums2[stack[-1]]:  #单调栈 符合单调的顺序 放进去
+                stack.append(i)
+            else:
+                while stack and nums2[i] > nums2[stack[-1]]: #遇到更大的了 前面比他小的可以有结果了
+                    if nums2[stack[-1]] in nums1:
+                        index = nums1.index(nums2[stack[-1]]) #查到这个要存结果集的数在结果集中的下标 也就是在nums1中的下标
+                        result[index] = nums2[i]   #要元素值 不是下标
+                    stack.pop()
+                stack.append(i)
+        return result
