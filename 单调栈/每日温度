@@ -18,3 +18,21 @@ class Solution:
 
 理解：
 单调栈的第一题 通过入栈出栈下标来得到第一个大于它的下标 然后得到answer 一共有三个数组 每个数组的含义要理解清楚
+
+二刷：
+class Solution:
+    def dailyTemperatures(self, temperatures: List[int]) -> List[int]:
+        result = [0] * len(temperatures)  #最后输出的结果集 下标对应等待的天数  默认为0
+        stack = [0] #用来压入弹出的核心单调栈 里面是温度数组的下标 也是第几天
+        for i in range(1, len(temperatures)):  #遍历一次就行了 时间复杂度n 
+            if temperatures[i] <= temperatures[stack[-1]]:  #维持栈顶到栈底递增的单调栈
+                stack.append(i)
+            else:
+                while stack and temperatures[stack[-1]] < temperatures[i]:
+                    result[stack[-1]] = i - stack[-1]
+                    stack.pop()
+                stack.append(i)
+        return result 
+
+理解：
+其实本质上就是遇到更大的就计算结果 用一个栈暂时保存之前的下标就行了
