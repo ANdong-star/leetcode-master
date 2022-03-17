@@ -2,7 +2,7 @@
 在这里实现链式存储的节点定义：
 
 class Tree_Node:
-    def __init__(slef, value):
+    def __init__(self, value):
         sef.value = value
         self.lchild = None
         Self.rchild = None
