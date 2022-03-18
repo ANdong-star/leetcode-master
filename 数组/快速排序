@@ -2,3 +2,26 @@
 快速排序
 
 代码：
+
+
+def fast_order(nums, left, right):
+    #终止条件
+    if left >= right:
+        return
+    privot = nums[left]
+    left_, right_ = left, right
+    while left_ < right_:
+        while nums[right_] >= privot and left_ < right_:
+            right_ -= 1
+        while nums[left_] <= privot and left_ < right_:
+            left_ += 1
+        nums[left_], nums[right_] = nums[right_], nums[left_]
+
+    nums[left_], nums[left] = nums[left], nums[left_]
+    fast_order(nums, 0, left_ - 1)
+    fast_order(nums, left_ + 1, right)
+
+if __name__ == '__main__':
+    nums = [3,4,8,7,4,9,6,10,1,2,5,8]
+    fast_order(nums, 0, len(nums) - 1)
+    print(nums)
