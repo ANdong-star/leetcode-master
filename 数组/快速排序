@@ -2,8 +2,6 @@
 快速排序
 
 代码：
-
-
 def fast_order(nums, left, right):
     #终止条件
     if left >= right:
