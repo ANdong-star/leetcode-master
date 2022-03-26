@@ -1,0 +1,48 @@
+题目：
+整数数组的一个 排列  就是将其所有成员以序列或线性顺序排列。
+
+例如，arr = [1,2,3] ，以下这些都可以视作 arr 的排列：[1,2,3]、[1,3,2]、[3,1,2]、[2,3,1] 。
+整数数组的 下一个排列 是指其整数的下一个字典序更大的排列。更正式地，如果数组的所有排列根据其字典顺序从小到大排列在一个容器中，那么数组的 下一个排列 就是在这个有序容器中排在它后面的那个排列。如果不存在下一个更大的排列，那么这个数组必须重排为字典序最小的排列（即，其元素按升序排列）。
+
+例如，arr = [1,2,3] 的下一个排列是 [1,3,2] 。
+类似地，arr = [2,3,1] 的下一个排列是 [3,1,2] 。
+而 arr = [3,2,1] 的下一个排列是 [1,2,3] ，因为 [3,2,1] 不存在一个字典序更大的排列。
+给你一个整数数组 nums ，找出 nums 的下一个排列。
+
+必须 原地 修改，只允许使用额外常数空间。
+
+代码：
+class Solution:
+    def nextPermutation(self, nums: List[int]) -> None:
+        """
+        Do not return anything, modify nums in-place instead.
+        """
+        if len(nums) == 1:
+            return nums
+        nums_length = len(nums) 
+        num_left, num_right = nums_length - 1, nums_length - 1
+        for i in range(len(nums) - 1, 0, -1):
+            if nums[i] > nums[i-1]:
+                num_left, num_right = i - 1, i
+                break
+        for j in range(len(nums) - 1, num_left, -1):
+            if nums[j] > nums[num_left]:
+                nums[j], nums[num_left] = nums[num_left], nums[j]
+                # nums[num_right:].sort()
+                nums_new = nums[num_right:]
+                nums_new.sort()
+                nums[num_right:] = nums_new
+                break
+        if num_left == nums_length - 1:
+            nums.sort()
+        return nums        
+
+理解：
+将排列进行修改 新的排列比之前的排列大 但只大一级  如果当前的排列是最大的 则返回最小排列
+
+首先从后往前 找第一个降序的两个元素组合  之后保存两个元素所在的下标      （理由： 降序无法交换取更大 找到第一个升序可以交换的位置）
+然后重新从后往前 找第一个比 两个元素组合前一个元素 还大的元素 交换位置    （第一个可以交换的位置不能直接交换 找更小的大值来交换）
+两个元素组合后一个元素包括之后的元素 升序排列   （交换之后 后面的元素还可以更小 降序变升序）
+
+
+
