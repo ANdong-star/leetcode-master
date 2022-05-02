@@ -1,0 +1,40 @@
+题目:
+给你一个单链表的头节点 head ，请你判断该链表是否为回文链表。如果是，返回 true ；否则，返回 false 。
+
+代码：
+# Definition for singly-linked list.
+# class ListNode:
+#     def __init__(self, val=0, next=None):
+#         self.val = val
+#         self.next = next
+class Solution:
+    def isPalindrome(self, head: ListNode) -> bool:
+        
+        if not head.next:
+            return True
+        
+        #两个任务 1. 找链表的中心点 2. 中心点前面的反转链表
+        slow, fast = head, head
+        prepre, pre = None, head
+        
+        while fast and fast.next:
+
+            pre = slow
+            slow = slow.next
+            fast = fast.next.next
+
+            pre.next = prepre
+            prepre = pre
+        
+        if fast:
+            slow = slow.next
+        
+        while slow and pre:
+            if slow.val != pre.val:
+                return False
+            slow = slow.next
+            pre = pre.next
+        return True
+
+理解：
+见注释
