@@ -1,0 +1,33 @@
+题目：
+给你一个链表数组，每个链表都已经按升序排列。
+
+请你将所有链表合并到一个升序链表中，返回合并后的链表。
+
+代码：
+# Definition for singly-linked list.
+# class ListNode:
+#     def __init__(self, val=0, next=None):
+#         self.val = val
+#         self.next = next
+class Solution:
+    def mergeKLists(self, lists: List[Optional[ListNode]]) -> Optional[ListNode]:
+        if not lists:
+            return None
+
+        import heapq   #直接就可以import heapq!!!
+        que = []
+        for node in lists:
+            while node:
+                heapq.heappush(que, node.val)
+                node = node.next
+
+        dummy_head = ListNode()
+        cur = dummy_head
+        while que:
+            cur.next = ListNode(heapq.heappop(que))  #用cur.next 赋值
+            cur = cur.next
+        
+        return dummy_head.next
+            
+理解：
+用堆来解决 将所有链表的节点值保存在堆里 然后重新创建一个链表将堆里的元素接起来
