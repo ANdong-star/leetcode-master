@@ -2,7 +2,31 @@
 给定一个已排序的链表的头 head ， 删除原始链表中所有重复数字的节点，只留下不同的数字 。返回已排序的链表 。
 
 代码：
+# Definition for singly-linked list.
+# class ListNode:
+#     def __init__(self, val=0, next=None):
+#         self.val = val
+#         self.next = next
+class Solution:
+    def deleteDuplicates(self, head: ListNode) -> ListNode:
+        #head可能也会被删除 因此需要定义虚拟头节点 
+        #找到一个重复的元素后 cur.next 一直指向没有这个元素为止
+        #因为已经排好序了 因此相同的元素都在一起
+        if not head:
+            return head
+            
+        dummy_head = ListNode(next = head)
+        cur = dummy_head
 
-
+        while cur.next and cur.next.next:
+            if cur.next.val == cur.next.next.val:
+                tmp = cur.next.val
+                #开始删除
+                while cur.next and cur.next.val == tmp:
+                    cur.next = cur.next.next  #修改指向 本cur保证没有重复元素 cur的指向一直在后移 后移到没有重复元素为止
+            else:
+                cur = cur.next #没有重复元素正常后移
+        return dummy_head.next
 
 理解：
+见注释
