@@ -1,0 +1,38 @@
+题目：
+如题
+
+代码：
+#第K大
+def fast_order(nums, left, right, K):
+    #终止条件
+    if left >= right:
+        return
+    privot = nums[left]
+    left_, right_ = left, right
+    while left_ < right_:
+        while nums[right_] >= privot and left_ < right_:
+            right_ -= 1
+        while nums[left_] <= privot and left_ < right_:
+            left_ += 1
+        if left_ < right_:
+            nums[left_], nums[right_] = nums[right_], nums[left_]
+
+    nums[left_], nums[left] = privot, nums[left_]
+    if left_ == K:
+        return
+    elif left_ < K:
+        fast_order(nums, left_ + 1, right, K)
+    elif left_ > K:
+        fast_order(nums, left, left_ - 1, K)
+
+
+nums = list(range(100))
+import random
+random.shuffle(nums)
+K = 78
+fast_order(nums, 0, len(nums) - 1, K)
+print(nums[K])
+
+理解：
+第K大好理解
+前K大 等到K跟下标相同时 第K大已经出来了 大于小于等于时 也是跟第K大一个思路
