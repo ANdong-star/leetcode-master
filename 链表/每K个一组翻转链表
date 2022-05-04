@@ -1,0 +1,51 @@
+题目：
+给你链表的头节点 head ，每 k 个节点一组进行翻转，请你返回修改后的链表。
+
+k 是一个正整数，它的值小于或等于链表的长度。如果节点总数不是 k 的整数倍，那么请将最后剩余的节点保持原有顺序。
+
+你不能只是单纯的改变节点内部的值，而是需要实际进行节点交换。
+
+代码：
+# Definition for singly-linked list.
+# class ListNode:
+#     def __init__(self, val=0, next=None):
+#         self.val = val
+#         self.next = next
+class Solution:
+    def reverse(self, start, end):
+        pre = end.next   #刚开始反转的时候 第一个head指向的节点
+        cur = start
+        while end != pre:
+            tmp = cur.next
+            cur.next = pre    #反转链表
+            pre = cur
+            cur = tmp
+        return end, start   #start, end所代表的节点是没有变的 
+
+    def reverseKGroup(self, head: Optional[ListNode], k: int) -> Optional[ListNode]:
+        dummy_head = ListNode(next = head)
+        pre = dummy_head  #pre代表要翻转的链表部分的往前一个
+        start = head  #start代表要翻转的链表部分的第一个
+
+        while start:
+            end = pre   #确定end所在的位置 从pre开始移动 
+            for _ in range(k):
+                end = end.next
+                if not end:
+                    return dummy_head.next  #遇到不到k的，直接输出结果
+            next_ = end.next  #next_代表翻转的链表的往后一个
+            
+            start, end = self.reverse(start, end)
+
+            #连接
+            pre.next = start
+            end.next = next_
+            
+            #更新
+            pre = end
+            start = next_
+
+        return dummy_head.next
+
+理解：
+理解好pre next_ start end四个节点的意义 事半功倍
