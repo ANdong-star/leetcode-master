@@ -1,0 +1,33 @@
+题目：
+给你一个 m 行 n 列的矩阵 matrix ，请按照 顺时针螺旋顺序 ，返回矩阵中的所有元素。
+
+代码：
+class Solution:
+    def spiralOrder(self, matrix: List[List[int]]) -> List[int]:
+        res = []
+
+        left, right, up, down = 0, len(matrix[0]) - 1, 0, len(matrix) - 1
+
+        while left <= right and up <= down:
+            for i in range(left, right+1):   #最上面一行找满
+                res.append(matrix[up][i])
+            for i in range(up+1, down+1):   #最右面一行找满
+                res.append(matrix[i][right])
+            #最后剩下一个横行或者一个竖行 这时候最下面一行和最左边一行就不能用了
+
+            if left < right and up < down:
+                for i in range(right-1, left-1, -1):
+                    # print(down, i)  
+                    res.append(matrix[down][i])
+
+                for i in range(down-1, up, -1):
+                    res.append(matrix[i][left])
+            
+            left += 1
+            right -= 1
+            up += 1
+            down -= 1
+        return res
+
+理解：
+主要是理解好外层到内层遍历的顺序和判断条件 跟螺旋矩阵Ⅱ不太一样
