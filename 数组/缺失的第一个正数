@@ -1,0 +1,27 @@
+题目：
+给你一个未排序的整数数组 nums ，请你找出其中没有出现的最小的正整数。
+
+请你实现时间复杂度为 O(n) 并且只使用常数级别额外空间的解决方案。
+
+代码：
+class Solution:
+    def firstMissingPositive(self, nums: List[int]) -> int:
+        #正数只会出现在[1, N+1]这个区间，用给的数组里的数放在[1, N+1]正确的位置上，然后再扫一遍，最后扫到的就是第一个下标和数字不符合的就是没出现的正数。
+
+        def swap_(index1, index2, nums):
+            nums[index1], nums[index2] = nums[index2], nums[index1]
+        N = len(nums)
+
+        for i in range(N):
+            while 1 <= nums[i] <= N and nums[i] != nums[nums[i] - 1]:  #举例： 4放在nums数组的3下标上
+                swap_(nums[i]-1, i, nums) 
+        
+        for i in range(N):
+            if nums[i] != i + 1:
+                return i + 1
+        return N + 1
+
+理解：
+把给的数组当作一个哈希表，让在[1, N]范围内的数字放在应该出现的位置上 
+如4放在下标3上
+不是很好理解 需要好好理解一下
