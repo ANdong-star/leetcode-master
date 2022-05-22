@@ -77,6 +77,67 @@ class LRUCache:
         return node
         
 #自己敲的
+class My_node:
+    def __init__(self, key = 0, value = 0, pre = None, next = None):
+        self.key = key #是为了删除字典的时候 定位key
+        self.value = value
+        self.pre = pre
+        self.next = next
 
+class LRUCache:
+
+    def __init__(self, capacity: int):
+        self.cache = {}
+        self.head = My_node()
+        self.tail = My_node()
+        self.head.next = self.tail
+        self.tail.pre = self.head
+        self.capacity = capacity
+        self.size = 0
+
+    def get(self, key: int) -> int:
+        if key not in self.cache:
+            return -1
+        #找到节点 然后move to head
+        node = self.cache[key]
+        self.moveTohead(node)
+        return node.value
+
+    def put(self, key: int, value: int) -> None:
+        if key not in self.cache:
+            node = My_node(key, value)
+            self.cache[key] = node
+            self.addNode(node)
+            self.size += 1
+            if self.size > self.capacity:
+                remove_node = self.removeTail()
+                self.cache.pop(remove_node.key)
+                self.size -= 1
+        else:
+            node = self.cache[key]
+            node.value = value
+            self.moveTohead(node)
+    
+    #传进来的是链表的节点
+    def addNode(self, node):
+        node.next = self.head.next
+        node.pre = self.head
+        self.head.next.pre = node
+        self.head.next = node 
+        
+    def moveTohead(self, node):
+        self.removeNode(node)
+        self.addNode(node)
+
+    def removeNode(self, node):
+        node.pre.next = node.next
+        node.next.pre = node.pre 
+
+    def removeTail(self):
+        node = self.tail.pre
+        self.removeNode(node)
+        return node
 
 理解：
+好理解 主要是细节和多敲
+
