@@ -1,0 +1,39 @@
+题目：
+给定一个 m x n 二维字符网格 board 和一个字符串单词 word 。如果 word 存在于网格中，返回 true ；否则，返回 false 。
+
+单词必须按照字母顺序，通过相邻的单元格内的字母构成，其中“相邻”单元格是那些水平相邻或垂直相邻的单元格。同一个单元格内的字母不允许被重复使用。
+
+代码：
+class Solution:
+    #dfs+回溯
+    def dfs(self, board, mark, x, y, word):
+        if len(word) == 0:
+            return True
+        m, n = len(board), len(board[0])
+        for i, j in ([1, 0],[-1, 0],[0, 1],[0, -1]):
+            cur_x, cur_y = x + i, y + j
+            if cur_x < 0 or cur_x >= m or cur_y < 0 or cur_y >= n or mark[cur_x][cur_y] == 1:
+                continue
+            if board[cur_x][cur_y] == word[0]: 
+                mark[cur_x][cur_y] = 1
+                if self.dfs(board, mark, cur_x, cur_y, word[1:]):
+                    return True
+                else:
+                    mark[cur_x][cur_y] = 0          
+
+    def exist(self, board: List[List[str]], word: str) -> bool:
+        m, n = len(board), len(board[0])
+        mark = [[0 for _ in range(n)] for _ in range(m)]
+
+        for i in range(m):
+            for j in range(n):
+                if board[i][j] == word[0]:
+                    mark[i][j] = 1
+                    if self.dfs(board, mark, i, j, word[1:]):
+                        return True
+                    else:
+                        mark[i][j] = 0
+        return False
+            
+理解：
+dfs+回溯
