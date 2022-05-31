@@ -1,0 +1,33 @@
+题目：
+给定一个包含非负整数的 m x n 网格 grid ，请找出一条从左上角到右下角的路径，使得路径上的数字总和为最小。
+
+说明：每次只能向下或者向右移动一步。
+
+代码：
+class Solution:
+    def minPathSum(self, grid: List[List[int]]) -> int:
+        m, n = len(grid), len(grid[0])
+        if m == 1:
+            ans = 0
+            for i in range(n):
+                ans += grid[0][i]
+            return ans
+        elif n == 1:
+            ans = 0
+            for i in range(m):
+                ans += grid[i][0]
+            return ans
+        else:
+            grid_min = [[0 for i in range(n)] for j in range(m)]
+            grid_min[0][0] = grid[0][0]
+            for i in range(1, m):
+                grid_min[i][0] = grid[i][0] + grid_min[i-1][0] 
+            for j in range(1, n):
+                grid_min[0][j] = grid[0][j] + grid_min[0][j-1]
+            for i in range(1, m):
+                for j in range(1, n):
+                    grid_min[i][j] = min(grid_min[i-1][j], grid_min[i][j-1]) + grid[i][j]
+            return grid_min[-1][-1]
+
+理解：
+用动态规划就完了
