@@ -1,0 +1,30 @@
+题目：
+给定一个包含红色、白色和蓝色、共 n 个元素的数组 nums ，原地对它们进行排序，使得相同颜色的元素相邻，并按照红色、白色、蓝色顺序排列。
+
+我们使用整数 0、 1 和 2 分别表示红色、白色和蓝色。
+
+必须在不使用库的sort函数的情况下解决这个问题。
+
+代码：
+class Solution:
+    def sortColors(self, nums: List[int]) -> None:
+        """
+        Do not return anything, modify nums in-place instead.
+        """
+        hash_map = {}
+        for i in range(len(nums)):
+            if nums[i] in hash_map:
+                hash_map[nums[i]] += 1
+            else:
+                hash_map[nums[i]] = 1
+        nums_0, nums_1, nums_2 = hash_map.get(0, 0), hash_map.get(1, 0), hash_map.get(2, 0)
+        for i in range(nums_0):
+            nums[i] = 0
+        for i in range(nums_0, nums_0 + nums_1):
+            nums[i] = 1
+        for i in range(nums_0+nums_1, nums_0 + nums_1 + nums_2):
+            nums[i] = 2
+        return nums
+
+理解：
+哈希表就可以做
