@@ -1,0 +1,33 @@
+题目：
+给你二叉树的根结点 root ，请你将它展开为一个单链表：
+
+展开后的单链表应该同样使用 TreeNode ，其中 right 子指针指向链表中下一个结点，而左子指针始终为 null 。
+展开后的单链表应该与二叉树 先序遍历 顺序相同。
+
+
+代码：
+# Definition for a binary tree node.
+# class TreeNode:
+#     def __init__(self, val=0, left=None, right=None):
+#         self.val = val
+#         self.left = left
+#         self.right = right
+class Solution:
+    def flatten(self, root: TreeNode) -> None:
+        """
+        Do not return anything, modify root in-place instead.
+        """
+        #将每个节点的左子树的最右下角节点作为右子树的前驱节点
+        cur_node = root
+        while cur_node:
+            if cur_node.left:
+                tmp = nxt = cur_node.left  #缓存一下左节点 一个用来找左子树的最右下角节点  一个用来赋值 从左边赋值到右边
+                while tmp.right:
+                    tmp = tmp.right
+                tmp.right = cur_node.right
+                cur_node.right = nxt
+                cur_node.left = None
+            cur_node = cur_node.right
+
+理解：
+在注解里
