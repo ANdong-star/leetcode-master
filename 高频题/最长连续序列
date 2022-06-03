@@ -1,0 +1,23 @@
+题目：
+给定一个未排序的整数数组 nums ，找出数字连续的最长序列（不要求序列元素在原数组中连续）的长度。
+
+请你设计并实现时间复杂度为 O(n) 的算法解决此问题。
+
+
+代码：
+class Solution:
+    def longestConsecutive(self, nums: List[int]) -> int:
+        res = 0
+        nums = set(nums) #清除重复的
+        for num in nums:
+            if num - 1 not in nums:  #若前面一个数没有出现 则新的一个连续序列就出现了 就可以计算了 这种操作也可以排除重复计算的问题
+                tmp = 1
+                cur = num 
+                while cur + 1 in nums:  #将当前的连续序列跑完
+                    cur += 1
+                    tmp += 1
+                res = max(res, tmp)
+        return res
+
+理解：
+看注释
