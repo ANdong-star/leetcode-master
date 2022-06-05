@@ -1,0 +1,41 @@
+题目：
+你这个学期必须选修 numCourses 门课程，记为 0 到 numCourses - 1 。
+
+在选修某些课程之前需要一些先修课程。 先修课程按数组 prerequisites 给出，其中 prerequisites[i] = [ai, bi] ，表示如果要学习课程 ai 则 必须 先学习课程  bi 。
+
+例如，先修课程对 [0, 1] 表示：想要学习课程 0 ，你需要先完成课程 1 。
+请你判断是否可能完成所有课程的学习？如果可以，返回 true ；否则，返回 false 。
+
+代码：
+class Solution:
+    def canFinish(self, numCourses: int, prerequisites: List[List[int]]) -> bool:
+        
+        #用字典（值是列表）表示每个课程修完之后 什么课程就不用依赖这个课程了
+        #用一个数组（下标为课程的编号）表示每个课程需要学习多少先修课程
+        from collections import defaultdict, deque
+        
+        #建立每个课程修完之后会对哪些课程有影响  以及每个课程目前的先修课程的数量
+        relation = defaultdict(list)
+        rudu = [0] * numCourses
+        for course_rela in prerequisites:
+            relation[course_rela[1]].append(course_rela[0])
+            rudu[course_rela[0]] += 1
+        
+        #把可以学习的课程搞出来 开始学习
+        que = deque(u for u in range(len(rudu)) if rudu[u] == 0)
+        
+        #result代表的是目前学了多少课程 最后要看与课程总数书否匹配来看true还是false的
+        result = 0
+        while que:
+            course = que.popleft()
+            result += 1  #又学习了一门课程 课程数加一
+            for course_next in relation[course]:
+                rudu[course_next] -= 1
+                if rudu[course_next] == 0:
+                    que.append(course_next)
+        return result == numCourses
+
+理解：
+将每一门课需要学习前置课程的数量和没门课学完之后会让哪些课程的前置课程数量减少标记出来
+刚开始从不需要学习前置课程的课程开始学 学完之后就会影响其他的课程 接着学 一直到que队列里没有课程了
+这个时候看一下学习了多少门课程 看是否跟所有的课程数量对的上
