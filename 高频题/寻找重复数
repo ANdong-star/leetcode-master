@@ -1,0 +1,28 @@
+题目：
+给定一个包含 n + 1 个整数的数组 nums ，其数字都在 [1, n] 范围内（包括 1 和 n），可知至少存在一个重复的整数。
+
+假设 nums 只有 一个重复的整数 ，返回 这个重复的数 。
+
+你设计的解决方案必须 不修改 数组 nums 且只用常量级 O(1) 的额外空间。
+
+代码：
+class Solution:
+    def findDuplicate(self, nums: List[int]) -> int:
+        #有的数会出现不止两次，即三次或以上 但是不重复的只出现一次 这个没有问题 
+        left, right = 1, len(nums) - 1 
+        #要好好理解分割点的意思
+        ans = 0  #按照逻辑来说 ans随便取 因为肯定有符合情况的 ans肯定会改变
+        while left <= right:
+            count = 0
+            mid = (left + right) // 2
+            for i in range(len(nums)):
+                if nums[i] <= mid:
+                    count += 1
+            if count <= mid:
+                left = mid + 1
+            else:
+                right = mid - 1
+                ans = mid
+        return ans
+
+理解：
