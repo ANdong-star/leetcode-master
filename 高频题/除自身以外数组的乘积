@@ -1,0 +1,28 @@
+题目：
+给你一个整数数组 nums，返回 数组 answer ，其中 answer[i] 等于 nums 中除 nums[i] 之外其余各元素的乘积 。
+
+题目数据 保证 数组 nums之中任意元素的全部前缀元素和后缀的乘积都在  32 位 整数范围内。
+
+请不要使用除法，且在 O(n) 时间复杂度内完成此题。
+
+代码：
+class Solution:
+    def productExceptSelf(self, nums: List[int]) -> List[int]:
+        #构造两个数组 一个数组L[i]代表了nums[i]左边所有元素的乘积 R[i]代表了右边所有元素的乘积  遍历两遍 answer[i]揪出来了
+        #优化算法  L[i]用answer[代替]实时更新   R[i]用一个R值代替 循环更新
+        answer = [1] * len(nums)
+        
+        #构造L[i]数组
+        for i in range(1, len(nums)):
+            answer[i] = answer[i-1] * nums[i-1]  
+            
+        #开始计算answer
+        R = 1
+        for i in range(len(nums)-1, -1, -1):
+            answer[i] *= R
+            R *= nums[i]
+        return answer  
+
+理解：
+不能用除法 就把之前的左右两边的乘积都保留着
+时间复杂度O(n) 空间复杂度O(1)
