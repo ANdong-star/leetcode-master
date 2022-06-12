@@ -1,0 +1,27 @@
+题目：
+编写一个高效的算法来搜索 m x n 矩阵 matrix 中的一个目标值 target 。该矩阵具有以下特性：
+
+每行的元素从左到右升序排列。
+每列的元素从上到下升序排列。
+
+代码：
+class Solution:
+    def searchMatrix(self, matrix: List[List[int]], target: int) -> bool:
+        #从左向右升序 从上到下升序 那么 右上角算是中间的数
+        #从右上角开始找 若当前遍历到的值比target大 则向左走 若当前遍历的值比target 则向下走
+
+        m, n = len(matrix) - 1, len(matrix[0]) - 1
+        tmp1, tmp2 = 0, n
+        
+        while tmp1 <= m and tmp2 >= 0:
+            if matrix[tmp1][tmp2] > target:
+                tmp2 -= 1
+            elif matrix[tmp1][tmp2] < target:
+                tmp1 += 1
+            else:
+                return True
+
+        return False
+
+理解：
+这道题有很多种解法 我用的解法就是根据这个matrix是有序的 因此从一个中间值作比较 选择向哪个方向走 不断逼近target 
