@@ -1,0 +1,29 @@
+题目：
+给你一个含 n 个整数的数组 nums ，其中 nums[i] 在区间 [1, n] 内。请你找出所有在 [1, n] 范围内但没有出现在 nums 中的数字，并以数组的形式返回结果。
+
+ 
+
+来源：力扣（LeetCode）
+链接：https://leetcode.cn/problems/find-all-numbers-disappeared-in-an-array
+著作权归领扣网络所有。商业转载请联系官方授权，非商业转载请注明出处。
+
+代码：
+class Solution:
+    def findDisappearedNumbers(self, nums: List[int]) -> List[int]:
+        #数组内的元素的大小都在数组长度之内 因此 根据数组的元素大小 可以直接定位到数组内某一个位置 也就是下标
+        #因此 其实就是把数组的元素对应到他所在的下标占位  最后位置没有被占的 就是没有的
+        #此外 因为nums里的下边是从0开始的 因为有个差1的对应
+        #另外 为了防止nums本身被破坏 能够保留在[1,n]的特性 采用+n 判断的时候%n即除以取余的方式 比较巧妙
+        n = len(nums)
+        for num in nums:
+            nums[num % n - 1] += n
+
+        res = []
+        for i in range(n):
+            if nums[i] <= n:
+                res.append(i+1)   #这里注意 是下标没有出现 对应到[1,n]需要加1
+
+        return res
+
+理解：
+都在注释里 其实这道题不难 只是要把时间复杂度和空间复杂度降下来 就得需要好好思考
