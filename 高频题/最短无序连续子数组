@@ -1,0 +1,35 @@
+题目：
+给你一个整数数组 nums ，你需要找出一个 连续子数组 ，如果对这个子数组进行升序排序，那么整个数组都会变为升序排序。
+
+请你找出符合题意的 最短 子数组，并输出它的长度。
+
+
+代码：
+class Solution:
+    def findUnsortedSubarray(self, nums: List[int]) -> int:
+        if len(nums) == 0 or len(nums) == 1:
+            return 0 
+        
+        nums_increase = nums.copy()
+        nums_increase.sort()
+        left, right = 0, len(nums_increase) - 1
+
+        while left < len(nums_increase):
+            if nums_increase[left] != nums[left]:
+                break
+            left += 1
+        if left == len(nums_increase):
+            return 0
+
+        while right >= 0:
+            if nums_increase[right] != nums[right]:
+                break
+            right -= 1
+        
+        return (right - left + 1)
+
+理解：
+左边和右边都是有序的 
+先复制一下原数组 然后把这个数组给升序 然后就是找到中间的那个序列 中间的序列最左边和原数组相应位置第一个不一样 最右边和原数组右边相应位置第一个不一样
+找出这两个不一样的地方就可以了
+此时有一个要注意的 就是假如原数组就是升序的 那找的时候 例如找最左边 此时会找到超出范围 判断一下 如果超出了范围就说明原数组和排序完的数组完全一样 那就不用升序任何位置了
