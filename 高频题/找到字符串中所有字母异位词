@@ -1,0 +1,46 @@
+题目：
+给定两个字符串 s 和 p，找到 s 中所有 p 的 异位词 的子串，返回这些子串的起始索引。不考虑答案输出的顺序。
+
+异位词 指由相同字母重排列形成的字符串（包括相同的字符串）。
+
+代码：
+class Solution:
+    def findAnagrams(self, s: str, p: str) -> List[int]:
+        #采用滑动窗口的方式  维护一个数组 这个数组代表了s和p的差别  数组长度26代表26个字母 每个字母是-1 0 或者1 每次统计非0也就是False的数目 作为现在差距
+        #然后开始滑动窗口 最左边是要滑过去的 需要变化的有两种情况 一种这个位置为1 移除会变成0 则现在的差距就可以减1 一种现在为0 则会变不同 不可能为-1
+        #右边同理 有两种情况需要变化 一种现在是-1 则会变相同 一种现在是0 则会变不同  其他情况不会发生differ_count的变化
+        len_s, len_p = len(s), len(p)
+        if len_p > len_s:
+            return []
+        
+        hash_map = [0] * 26
+        for i in range(len_p):
+            hash_map[ord(s[i])-ord('a')] += 1   #s字符串 有的就加
+            hash_map[ord(p[i])-ord('a')] -= 1   #p字符串 有的就减
+
+        differ_count = [item != 0 for item in hash_map].count(True)  #非0的位置就是相等
+        res = []                   
+        if differ_count == 0:   #看0的位置符合条件不
+            res.append(0)
+        
+        #然后开始滑动窗口
+        for i in range(len_p, len_s): #开始滑动窗口
+            #先判断一下左边要舍弃的值
+            if hash_map[ord(s[i-len_p]) - ord('a')] == 1:  #这个位置要变化的话 因为待会要-1 所以只有原来是1和0才会发生变化 如果等于1 滑动之后就会变成0 
+                differ_count -= 1
+            elif hash_map[ord(s[i-len_p]) - ord('a')] == 0: #等于0的话 这个位置待会会变成-1 不同的位置又会增加一个
+                differ_count += 1
+            hash_map[ord(s[i-len_p]) - ord('a')] -= 1
+
+            if hash_map[ord(s[i]) - ord('a')] == -1:  #这个位置要变化的话 待会要+1 所以-1和0才会变化
+                differ_count -= 1
+            elif hash_map[ord(s[i]) - ord('a')] == 0:
+                differ_count += 1
+            hash_map[ord(s[i]) - ord('a')] += 1
+
+            if differ_count == 0:
+                res.append(i + 1 -len_p)
+        return res
+
+理解：
+见注释
