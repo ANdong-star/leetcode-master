@@ -21,7 +21,7 @@ class Solution:
                     right = mid - 1
                 else:      #前面没有return 现在就不存在target == nums[mid]的情况
                     left = mid + 1
-            else:   #右半部门有序
+            else:   #右半部分有序
                 if target > nums[mid] and target <= nums[right]:
                     left = mid + 1
                 else:
