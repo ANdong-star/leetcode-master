@@ -16,7 +16,7 @@ class Solution:
             mid = left + (right - left) // 2
             if nums[mid] == target:
                 return mid
-            if nums[left] <= nums[mid]:    #左半部门有序
+            if nums[left] <= nums[mid]:    #左半部分有序
                 if nums[left] <= target and target < nums[mid]:
                     right = mid - 1
                 else:      #前面没有return 现在就不存在target == nums[mid]的情况
