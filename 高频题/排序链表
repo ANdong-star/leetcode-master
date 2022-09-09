@@ -1,0 +1,43 @@
+题目：
+
+给你链表的头结点 head ，请将其按 升序 排列并返回 排序后的链表 。
+
+代码：
+# Definition for singly-linked list.
+# class ListNode:
+#     def __init__(self, val=0, next=None):
+#         self.val = val
+#         self.next = next
+class Solution:
+    def sortList(self, head: Optional[ListNode]) -> Optional[ListNode]:
+        #如果是空节点或者是一个节点 直接返回  可以拼了
+        if not head or not head.next:
+            return head
+        
+        #找中点
+        slow, fast = head, head.next
+        while fast and fast.next:
+            slow, fast = slow.next, fast.next.next
+        #截断
+        mid, slow.next = slow.next, None
+
+        #进行递归
+        left, right = self.sortList(head), self.sortList(mid)
+
+        #进行归并
+        tmp = res = ListNode()  #虚拟头结点
+        while left and right:
+            if left.val < right.val:
+                tmp.next = left
+                left, tmp = left.next, tmp.next
+            else:
+                tmp.next = right
+                right, tmp = right.next, tmp.next
+        if left:
+            tmp.next = left
+        elif right:
+            tmp.next = right
+        return res.next
+
+理解：
+类似归并排序的操作  不一样的点在于切割中间点的操作 以及归并的操作
